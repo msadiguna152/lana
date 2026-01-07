@@ -86,7 +86,7 @@
                               <tr>
                                 <th style="text-align: center; vertical-align: middle;">No</th>
                                 <th style="text-align: center; vertical-align: middle;">Nama Barang</th>
-                                <th style="text-align: center; vertical-align: middle;" <?= ($levelUser !== 'Operator') ? 'hidden' : ''; ?>>Tersedia</th>
+                                <th style="text-align: center; vertical-align: middle;" <?= ($levelUser != 'Pengusul') ? '' : 'hidden'; ?>>Tersedia</th>
                                 <th style="text-align: center; vertical-align: middle;">Permintaan</th>
                                 <th style="text-align: center; vertical-align: middle;">Pemberian</th>
                                 <th style="text-align: center; vertical-align: middle;">Rincian</th>
@@ -100,13 +100,16 @@
                                   <td style="text-align: center; vertical-align: left;width: 400px;">
                                     <?= $data2->nama_barang;?> (<?= $data2->nama_satuan;?>)
                                   </td>
+                                  <td style="text-align: center; vertical-align: left;width: 200px;">
+                                    <?= $data2->stok_barang;?> (<?= $data2->nama_satuan;?>)
+                                  </td>
 
                                   <td style="text-align: center; vertical-align: left;width: 200px;">
                                     <?= $data2->permintaan;?> (<?= $data2->nama_satuan;?>)
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
-                                    <?= $data2->stok_barang_keluar;?> (<?= $data2->nama_satuan;?>)
+                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" required>
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">

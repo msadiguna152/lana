@@ -74,12 +74,24 @@
                             <a href="<?= site_url('Barang_keluar/rincian/'.$data->id_barang_keluar);?>" class="btn btn-info btn-sm" data-toggle="tooltip" title="Rincian Data <?= $menu;?>">
                               <i class="bi bi-eye"></i>
                             </a>
-                            <a href="<?= site_url('Barang_keluar/update/'.$data->id_barang_keluar);?>" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Ubah Data <?= $menu;?>">
-                              <i class="bi bi-pencil"></i>
-                            </a>
-                            <a href="<?= site_url('Barang_keluar/delete/'.$data->id_barang_keluar);?>" class="btn btn-danger btn-sm tombol-hapus" data-toggle="tooltip" title="Hapus Data <?= $menu;?>">
-                              <i class="bi bi-trash"></i>
-                            </a>
+
+                            <?php if ($levelUser!="Operator"){ ?>
+                              <?php if ($data->status_barang_keluar=="Menunggu" OR $data->status_barang_keluar=="Ditolak"): ?>
+                                <a href="<?= site_url('Barang_keluar/update/'.$data->id_barang_keluar);?>" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Ubah Data <?= $menu;?>">
+                                  <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="<?= site_url('Barang_keluar/delete/'.$data->id_barang_keluar);?>" class="btn btn-danger btn-sm tombol-hapus" data-toggle="tooltip" title="Hapus Data <?= $menu;?>">
+                                  <i class="bi bi-trash"></i>
+                                </a>
+                              <?php endif; ?>
+                            <?php } else { ?>
+                              <a href="<?= site_url('Barang_keluar/update/'.$data->id_barang_keluar);?>" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Ubah Data <?= $menu;?>">
+                                <i class="bi bi-pencil"></i>
+                              </a>
+                              <a href="<?= site_url('Barang_keluar/delete/'.$data->id_barang_keluar);?>" class="btn btn-danger btn-sm tombol-hapus" data-toggle="tooltip" title="Hapus Data <?= $menu;?>">
+                                <i class="bi bi-trash"></i>
+                              </a>
+                            <?php }; ?>
                             
                           </td>
                         </tr>

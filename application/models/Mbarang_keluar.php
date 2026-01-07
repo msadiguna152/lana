@@ -128,7 +128,7 @@ class Mbarang_keluar extends CI_Model {
 	{
 		$query = $this->db->select('*')->from('rincian_barang_keluar')
 		->join('barang','barang.id_barang=rincian_barang_keluar.id_barang')
-		->join('satuan','satuan.id_satuan=barang.id_satuan')
+		->join('satuan','satuan.id_satuan=barang.id_satuan','LEFT')
 		->where('rincian_barang_keluar.id_barang_keluar',$id)
 		->order_by('rincian_barang_keluar.id_rincian_barang_keluar','DESC')->get();
 		return $query;

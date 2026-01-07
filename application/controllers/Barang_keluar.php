@@ -18,6 +18,7 @@ class Barang_keluar extends CI_Controller {
 				"barang_keluar" => $this->Mbarang_keluar->get($dari_tanggal,$sampai_tanggal),
 				"dari_tanggal" => $dari_tanggal,
 				"sampai_tanggal" => $sampai_tanggal,
+				"levelUser" => $this->session->userdata('level'),
 			);
 		} else {
 			$data = array(

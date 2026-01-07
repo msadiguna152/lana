@@ -83,21 +83,40 @@ class Mbarang extends CI_Model {
 			for($row=2; $row<=$highestRow; $row++){
 				$kode_barang =  $worksheet->getCellByColumnAndRow(1, $row)->getValue();
 				$nama_barang =  strtolower($worksheet->getCellByColumnAndRow(2, $row)->getValue());
-				$harga_barang =  $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+				$nama_satuan =  ucwords($worksheet->getCellByColumnAndRow(3, $row)->getValue());
 				$stok_barang =  $worksheet->getCellByColumnAndRow(4, $row)->getValue();
 				$deskripsi =  $worksheet->getCellByColumnAndRow(5, $row)->getValue();
-
-				$query = $this->db->select('*')->from('barang')->where('kode_barang',$kode_barang)->get();
-				if($query->num_rows() == 0 AND $nama_barang != NULL) {
+				$cek_satuan = $this->db->select('*')->from('satuan')->where('nama_satuan',$nama_satuan)->get();
+				if($cek_satuan->num_rows() == 0 AND $nama_barang != NULL) { 
 					$data = array(
-						'kode_barang' => $kode_barang,
-						'nama_barang' => ucwords($nama_barang),
-						'harga_barang' => $harga_barang,
-						'stok_barang' => $stok_barang,
-						'deskripsi' => $deskripsi,
-
+						'nama_satuan'=> $nama_satuan,
 					);
-					$this->db->insert('barang',$data);
+					$this->db->insert('satuan',$data);
+					$id_satuan = $this->db->insert_id();
+					$query = $this->db->select('*')->from('barang')->where('kode_barang',$kode_barang)->get();
+					if($query->num_rows() == 0 AND $nama_barang != NULL) {
+						$data = array(
+							'kode_barang' => $kode_barang,
+							'nama_barang' => ucwords($nama_barang),
+							'id_satuan' => $id_satuan,
+							'stok_barang' => $stok_barang,
+							'deskripsi' => $deskripsi,
+						);
+						$this->db->insert('barang',$data);
+					}
+				} elseif ($cek_satuan->num_rows() > 0 AND $nama_barang != NULL) {
+					$id_satuan = $cek_satuan->row()->id_satuan;
+					$query = $this->db->select('*')->from('barang')->where('kode_barang',$kode_barang)->get();
+					if($query->num_rows() == 0 AND $nama_barang != NULL) {
+						$data = array(
+							'kode_barang' => $kode_barang,
+							'nama_barang' => ucwords($nama_barang),
+							'id_satuan' => $id_satuan,
+							'stok_barang' => $stok_barang,
+							'deskripsi' => $deskripsi,
+						);
+						$this->db->insert('barang',$data);
+					}
 				}
 			}
 
