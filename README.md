@@ -1,0 +1,2 @@
+# lana
+ aplikasi habis pakai
