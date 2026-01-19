@@ -197,12 +197,27 @@ class Barang_keluar extends CI_Controller {
 		redirect('Barang_keluar');
 	}
 
-	public function cetak($id){
+	public function cetak(){
+		$dari_tanggal = $this->input->get('dari_tanggal');
+		$sampai_tanggal = $this->input->get('sampai_tanggal');
+
 		$data = array(
-			"dtbarang_keluar" => $this->Mbarang_keluar->get_cetak($id),
-			"rincian_barang_keluar" => $this->Mbarang_keluar->get_rincian_barang_cetak($id),
+			"menu" => "Barang",
+			"dari_tanggal" => $dari_tanggal,
+			"sampai_tanggal" => $sampai_tanggal,
+			"barang" => $this->Mbarang->getCetak($dari_tanggal,$sampai_tanggal),
 		);
-		$this->load->view('barang_keluar/cetak', $data);
+
+		$data['last_query'] = $this->session->userdata('last_query');
+		$this->load->view('tema/head',$data);
+		$this->load->view('tema/menu');
+		$this->load->view('barang/cetak');
+		$this->load->view('tema/footer');
+	}
+
+	public function hasil_cetak(){
+		$data['last_query'] = $this->db->query($this->session->userdata('last_query'));
+		$this->load->view('barang/hasil_cetak',$data);
 	}
 }
 

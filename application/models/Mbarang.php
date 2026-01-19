@@ -15,22 +15,12 @@ class Mbarang extends CI_Model {
 	}
 	public function get()
 	{
-		// if ($kode_barang==NULL OR $kode_barang=="Semua") {
-		// 	$query = $this->db->select('*')->from('barang')
-		// 	->join('sumber','sumber.kode_barang=barang.kode_barang','LEFT')
-		// 	->join('satuan','satuan.id_satuan=barang.id_satuan')
-		// 	->order_by('sumber.nama_sumber','ASC')->get();
-		// } else {
-		// 	$query = $this->db->select('*')->from('barang')
-		// 	->join('sumber','sumber.kode_barang=barang.kode_barang','LEFT')
-		// 	->join('satuan','satuan.id_satuan=barang.id_satuan')
-		// 	->where('barang.kode_barang',$kode_barang)
-		// 	->order_by('nama_barang','ASC')->get();
-		// };
-
-		$query = $this->db->select('*')->from('barang')
-		->join('satuan','satuan.id_satuan=barang.id_satuan','LEFT')
-		->order_by('barang.id_barang','DESC')->get();
+		$query = $this->db
+		->select('barang.id_barang, barang.kode_barang, barang.nama_barang, barang.deskripsi, barang.stok_barang, satuan.nama_satuan')
+		->from('barang')
+		->join('satuan', 'satuan.id_satuan = barang.id_satuan', 'left')
+		->order_by('barang.id_barang', 'DESC')
+		->get();
 		return $query;
 	}
 
@@ -123,4 +113,77 @@ class Mbarang extends CI_Model {
 			// echo var_dump($highestColumn);
 		}
 	}
+
+	public function getCetak($dari, $sampai)
+	{
+		$this->db->select('barang.id_barang, barang.kode_barang, barang.nama_barang, barang.deskripsi, satuan.nama_satuan, COALESCE(SUM(CASE WHEN barang_masuk.tanggal_barang_masuk BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_masuk.stok_barang_masuk ELSE 0 END),0) AS total_masuk, COALESCE(SUM(CASE WHEN barang_keluar.tanggal_barang_keluar BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_keluar.stok_barang_keluar ELSE 0 END),0) AS total_keluar, (COALESCE(SUM(CASE WHEN barang_masuk.tanggal_barang_masuk BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_masuk.stok_barang_masuk ELSE 0 END),0) - COALESCE(SUM(CASE WHEN barang_keluar.tanggal_barang_keluar BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_keluar.stok_barang_keluar ELSE 0 END),0)) AS stok_akhir', false);
+
+		$this->db->from('barang');
+		$this->db->join('satuan', 'barang.id_satuan = satuan.id_satuan', 'left');
+		$this->db->join('rincian_barang_masuk', 'barang.id_barang = rincian_barang_masuk.id_barang', 'left');
+		$this->db->join('barang_masuk', 'rincian_barang_masuk.id_barang_masuk = barang_masuk.id_barang_masuk', 'left');
+		$this->db->join('rincian_barang_keluar', 'barang.id_barang = rincian_barang_keluar.id_barang', 'left');
+		$this->db->join('barang_keluar', 'rincian_barang_keluar.id_barang_keluar = barang_keluar.id_barang_keluar', 'left');
+
+		$this->db->group_by('barang.id_barang');
+		$this->db->order_by('barang.id_barang', 'ASC');
+
+		$sql = $this->db->get();
+
+		$this->session->set_userdata('last_query', $this->db->last_query());
+		return $sql;
+		
+
+	}
+
+	public function get_barang($id_barang)
+	{
+		return $this->db
+		->select('barang.*, satuan.nama_satuan')
+		->from('barang')
+		->join('satuan', 'barang.id_satuan = satuan.id_satuan', 'left')
+		->where('barang.id_barang', $id_barang)
+		->get()
+		->row();
+	}
+
+	public function get_rincian_transaksi($id_barang, $dari, $sampai)
+	{
+	    // =======================
+	    // BARANG MASUK
+	    // =======================
+		$masuk = $this->db->select('barang_masuk.tanggal_barang_masuk AS tanggal, "Masuk" AS jenis, rincian_barang_masuk.stok_barang_masuk AS jumlah, rincian_barang_masuk.rincian AS keterangan', false)
+		->from('rincian_barang_masuk')
+		->join('barang_masuk', 'rincian_barang_masuk.id_barang_masuk = barang_masuk.id_barang_masuk', 'inner')
+		->where('rincian_barang_masuk.id_barang', $id_barang)
+		->where('barang_masuk.tanggal_barang_masuk >=', $dari)
+		->where('barang_masuk.tanggal_barang_masuk <=', $sampai)
+		->get()
+		->result_array();
+
+	    // =======================
+	    // BARANG KELUAR
+	    // =======================
+		$keluar = $this->db->select('barang_keluar.tanggal_barang_keluar AS tanggal, "Keluar" AS jenis, rincian_barang_keluar.stok_barang_keluar AS jumlah, rincian_barang_keluar.rincian AS keterangan', false)
+		->from('rincian_barang_keluar')
+		->join('barang_keluar', 'rincian_barang_keluar.id_barang_keluar = barang_keluar.id_barang_keluar', 'inner')
+		->where('rincian_barang_keluar.id_barang', $id_barang)
+		->where('barang_keluar.tanggal_barang_keluar >=', $dari)
+		->where('barang_keluar.tanggal_barang_keluar <=', $sampai)
+		->get()
+		->result_array();
+
+	    // =======================
+	    // GABUNG & SORT
+	    // =======================
+		$hasil = array_merge($masuk, $keluar);
+
+		usort($hasil, function ($a, $b) {
+			return strtotime($a['tanggal']) <=> strtotime($b['tanggal']);
+		});
+
+		return $hasil;
+	}
+
+
 }

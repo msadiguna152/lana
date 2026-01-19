@@ -4,7 +4,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-6">
-              <h5 class="m-0 text-info">Data <?= $menu; ?></h5>
+              <h5 class="m-0 text-info">Cetak Data <?= $menu; ?></h5>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -26,18 +26,17 @@
               <div class="card">
                 <div class="card-header">
                   <div class="row">
-                    <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
-                      <a href="<?= site_url('Barang/insert')?>" class="btn btn-block btn-info">Tambah Data</a>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                      <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Filter</a>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
-                      <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Import Data</a>
-                    </div>
-                    <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
-                      <a data-toggle="modal" data-target="#modalCetak"class="btn btn-block btn-info">Cetak Data</a>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                      <a href="<?= site_url('Barang/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a>
                     </div>
                   </div>
                 </div><!-- /.card-header -->
                 <div class="card-body">
+                  <!-- <?= $last_query;?> -->
+                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center text-info">Laporan Data Barang Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
                   <div class="table-responsive">
                     <table id="example2" width="100%" class="table table-bordered table-hover">
                       <thead align="center">
@@ -45,7 +44,9 @@
                           <th style="text-align: center; vertical-align: middle;">No</th>
                           <th style="text-align: center; vertical-align: middle;">Kode Barang </th>
                           <th style="text-align: center; vertical-align: middle;">Nama Barang</th>
-                          <th style="text-align: center; vertical-align: middle;">Stok</th>
+                          <th>Barang Masuk</th>
+                          <th>Barang Keluar</th>
+                          <th>Stok Akhir</th>
                           <th style="text-align: center; vertical-align: middle;">Satuan</th>
                           <!-- <th style="text-align: center; vertical-align: middle;">Harga</th> -->
                           <th style="text-align: center; vertical-align: middle;">Deskripsi</th>
@@ -58,18 +59,12 @@
                           <td style="text-align: center; vertical-align: middle;"><?= $no;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->kode_barang;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_barang;?></td>
-                          <td style="text-align: center; vertical-align: middle;"><?= $data->stok_barang!=NULL ? number_format($data->stok_barang,0,',','.') : '0';?></td>
+                          <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_masuk) ?></td>
+                          <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_keluar) ?></td>
+                          <td style="text-align: center; vertical-align: middle;"><b><?= number_format($data->stok_akhir) ?></b></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_satuan;?></td>
-                          <!-- <td style="text-align: center; vertical-align: middle;"><?= $data->harga_barang!=NULL ? "Rp. " . number_format($data->harga_barang,0,',','.') : 'Rp. 0';?></td> -->
                           <td style="text-align: center; vertical-align: middle;"><?= $data->deskripsi;?></td>
-                          <td style="text-align: center; vertical-align: middle;">
-                            <a href="<?= site_url('Barang/update/'.$data->id_barang);?>" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Ubah Data <?= $menu." : ".$data->nama_barang;?>">
-                              <i class="bi bi-pencil"></i>
-                            </a>
-                            <a href="<?= site_url('Barang/delete/'.$data->id_barang);?>" class="btn btn-danger btn-sm tombol-hapus" data-toggle="tooltip" title="Hapus Data <?= $menu." : ".$data->nama_barang;?>">
-                              <i class="bi bi-trash"></i>
-                            </a>
-                          </td>
+                          <td style="text-align: center; vertical-align: middle;"><a href="<?= site_url('Barang/cetak_rincian_perbarang?id_barang='.$data->id_barang.'&dari='.$dari_tanggal.'&sampai='.$sampai_tanggal)?>" target="_BLANK">Cetak</a></td>
                         </tr>
                         <?php $no++; endforeach;?>
                       </tbody>
@@ -90,25 +85,6 @@
     </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <form role="form" action="<?= site_url('Barang/import_excel');?>" method="post" enctype="multipart/form-data">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="id_asal">Pilih File Excel (<a href="<?= base_url();?>excel/import_barang.xlsx">Unduh Format</a>)</label>
-                <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="form-control-file" name="file"  required>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-              <button type="submit" class="btn btn-info">Import File</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="modal fade" id="modalCetak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <form role="form" action="<?= site_url('Barang/cetak');?>" method="GET" enctype="multipart/form-data">
           <div class="modal-content">

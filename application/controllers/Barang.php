@@ -113,6 +113,43 @@ class Barang extends CI_Controller {
 		}
 
 	}
+
+	public function cetak(){
+		$dari_tanggal = $this->input->get('dari_tanggal');
+		$sampai_tanggal = $this->input->get('sampai_tanggal');
+
+		$data = array(
+			"menu" => "Barang",
+			"dari_tanggal" => $dari_tanggal,
+			"sampai_tanggal" => $sampai_tanggal,
+			"barang" => $this->Mbarang->getCetak($dari_tanggal,$sampai_tanggal),
+		);
+
+		$data['last_query'] = $this->session->userdata('last_query');
+		$this->load->view('tema/head',$data);
+		$this->load->view('tema/menu');
+		$this->load->view('barang/cetak');
+		$this->load->view('tema/footer');
+	}
+
+	public function hasil_cetak(){
+		$data['last_query'] = $this->db->query($this->session->userdata('last_query'));
+		$this->load->view('barang/hasil_cetak',$data);
+	}
+
+	public function cetak_rincian_perbarang()
+    {
+        $id_barang = $this->input->get('id_barang');
+        $dari = $this->input->get('dari');
+        $sampai = $this->input->get('sampai');
+
+        $data['barang'] = $this->Mbarang->get_barang($id_barang);
+        $data['rincian'] = $this->Mbarang->get_rincian_transaksi($id_barang, $dari, $sampai);
+        $data['dari'] = $dari;
+        $data['sampai'] = $sampai;
+
+        $this->load->view('barang/cetak_rincian_perbarang', $data);
+    }
 }
 
 /* End of file welcome.php */

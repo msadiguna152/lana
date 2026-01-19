@@ -109,23 +109,7 @@
 
               </ul>
             </li>
-
-            <li class="nav-item <?= ($menu == "Laporan" OR $menu == "Laporan2") ? "menu-open" : "";?>">
-              <a href="#" class="nav-link <?= ($menu == "Laporan" OR $menu == "Laporan2") ? "active" : "";?>">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>Laporan<i class="fas fa-angle-left right"></i></p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <!-- <li class="nav-item">
-                  <a href="<?= base_url()?>Laporan/DINAMIKA" class="nav-link <?= ($menu == "Laporan") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dinamika IFK</p>
-                  </a>
-                </li>
- -->
-              </ul>
-            </li>
+            
             <?php } else { ?>
               <li class="nav-item ">
               <a href="<?= base_url('Barang_keluar');?>" class="nav-link <?= ($menu == "Permintaan Barang") ? "active" : "";?>">
