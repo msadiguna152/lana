@@ -30,42 +30,40 @@
                       <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Filter</a>
                     </div>
                     <div class="col-lg-2 col-md-6 col-sm-12">
-                      <a href="<?= site_url('Barang_keluar/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a>
+                      <a href="<?= site_url('Barang_masuk/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a>
                     </div>
                   </div>
                 </div><!-- /.card-header -->
                 <div class="card-body">
                   <!-- <?= $last_query;?> -->
-                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center h4 text-info">Laporan Data Barang Keluar Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
+                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center text-info">Laporan Data Barang Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
                   <div class="table-responsive">
                     <table id="example2" width="100%" class="table table-bordered table-hover">
                       <thead align="center">
                         <tr>
                           <th>No</th>
-                          <th>No Berita Acara</th>
-                          <th>No Bukti</th>
+                          <th>No Barang Masuk</th>
                           <th>Tanggal</th>
-                          <th>Pemohon</th>
+                          <th>No Bukti</th>
                           <th>Kode Barang</th>
                           <th>Nama Barang</th>
-                          <th>Barang Keluar</th>
+                          <th>Barang Masuk</th>
                           <th>Satuan</th>
-                          <th>Keterangan</th>
+                          <th>Deskripsi</th>
                         </tr>
                       </thead>
                       <tbody style="text-align: left; vertical-align: top;">
-                        <?php $no=1; foreach ($barang_keluar->result() as $row) : ?>
+                        <?php $no=1; foreach ($barang_masuk->result() as $data) : ?>
                         <tr>
                           <td><?= $no++; ?></td>
-                          <td><?= $row->no_berita_acara; ?></td>
-                          <td><?= $row->no_bukti; ?></td>
-                          <td><?= format_indo($row->tanggal_barang_keluar); ?></td>
-                          <td class="left"><?= $row->nama_pegawai; ?></td>
-                          <td><?= $row->kode_barang; ?></td>
-                          <td class="left"><?= $row->nama_barang; ?></td>
-                          <td><b><?= number_format($row->jumlah_keluar); ?></b></td>
-                          <td><?= $row->nama_satuan; ?></td>
-                          <td class="left"><?= $row->keterangan_barang_keluar; ?></td>
+                          <td><?= $data->no_barang_masuk; ?></td>
+                          <td><?= format_indo($data->tanggal_barang_masuk); ?></td>
+                          <td><?= $data->no_bukti; ?></td>
+                          <td><?= $data->kode_barang; ?></td>
+                          <td class="left"><?= $data->nama_barang; ?></td>
+                          <td><b><?= number_format($data->jumlah_masuk); ?></b></td>
+                          <td><?= $data->nama_satuan; ?></td>
+                          <td class="left"><?= $data->deskripsi; ?></td>
                         </tr>
                         <?php $no++; endforeach;?>
                       </tbody>
@@ -87,7 +85,7 @@
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <form role="form" action="<?= site_url('Barang_keluar/cetak');?>" method="GET" enctype="multipart/form-data">
+        <form role="form" action="<?= site_url('Barang_masuk/cetak');?>" method="GET" enctype="multipart/form-data">
           <div class="modal-content">
             <div class="modal-body">
               <div class="form-group">

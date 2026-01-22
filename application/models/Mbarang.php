@@ -152,7 +152,7 @@ class Mbarang extends CI_Model {
 	    // =======================
 	    // BARANG MASUK
 	    // =======================
-		$masuk = $this->db->select('barang_masuk.tanggal_barang_masuk AS tanggal, "Masuk" AS jenis, rincian_barang_masuk.stok_barang_masuk AS jumlah, rincian_barang_masuk.rincian AS keterangan', false)
+		$masuk = $this->db->select('barang_masuk.tanggal_barang_masuk AS tanggal, "Masuk" AS jenis, barang_masuk.no_bukti, rincian_barang_masuk.stok_barang_masuk AS jumlah, rincian_barang_masuk.rincian AS keterangan', false)
 		->from('rincian_barang_masuk')
 		->join('barang_masuk', 'rincian_barang_masuk.id_barang_masuk = barang_masuk.id_barang_masuk', 'inner')
 		->where('rincian_barang_masuk.id_barang', $id_barang)
@@ -164,9 +164,10 @@ class Mbarang extends CI_Model {
 	    // =======================
 	    // BARANG KELUAR
 	    // =======================
-		$keluar = $this->db->select('barang_keluar.tanggal_barang_keluar AS tanggal, "Keluar" AS jenis, rincian_barang_keluar.stok_barang_keluar AS jumlah, rincian_barang_keluar.rincian AS keterangan', false)
+		$keluar = $this->db->select('barang_keluar.tanggal_barang_keluar AS tanggal, "Keluar" AS jenis, barang_keluar.no_bukti, pegawai.nama_pegawai, rincian_barang_keluar.stok_barang_keluar AS jumlah, rincian_barang_keluar.rincian AS keterangan', false)
 		->from('rincian_barang_keluar')
 		->join('barang_keluar', 'rincian_barang_keluar.id_barang_keluar = barang_keluar.id_barang_keluar', 'inner')
+		->join('pegawai', 'pegawai.id_pegawai = barang_keluar.id_pegawai', 'left')
 		->where('rincian_barang_keluar.id_barang', $id_barang)
 		->where('barang_keluar.tanggal_barang_keluar >=', $dari)
 		->where('barang_keluar.tanggal_barang_keluar <=', $sampai)

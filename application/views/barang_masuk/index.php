@@ -31,6 +31,9 @@
                     <div class="col-lg-2 col-md-6 col-sm-12">
                       <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Filter</a>
                     </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
+                      <a data-toggle="modal" data-target="#modalCetak"class="btn btn-block btn-info">Cetak Data</a>
+                    </div>
                   </div>
                 </div>
                 <div class="card-body">
@@ -87,6 +90,37 @@
       <div class="modal-dialog" role="document">
         <form role="form" action="<?= site_url('Barang_masuk/index');?>" method="GET" enctype="multipart/form-data">
           <div class="modal-content">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="dari_tanggal">Dari Tanggal</label>
+                <input type="date" class="form-control" name="dari_tanggal" required>
+              </div>
+              <div class="form-group">
+                <label for="sampai_tanggal">Sampai Tanggal</label>
+                <input type="date" class="form-control" name="sampai_tanggal" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-info">Tampilkan Data</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalCetak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <form role="form" action="<?= site_url('Barang_masuk/cetak');?>" method="GET" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+              <h5 class="modal-title" id="modalCetakLabel">
+                <i class="fa fa-print"></i> Cetak Data Barang Masuk
+              </h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             <div class="modal-body">
               <div class="form-group">
                 <label for="dari_tanggal">Dari Tanggal</label>

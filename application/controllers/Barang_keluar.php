@@ -1,225 +1,185 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Barang_keluar extends CI_Controller {
+
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('Mbarang_keluar');
-		$this->load->model('Mpegawai');
-		$this->load->model('Mbarang');
-		
+		$this->load->model([
+			'Mbarang_keluar',
+			'Mpegawai',
+			'Mbarang'
+		]);
 	}
+
+	/* ===================== INDEX ===================== */
 	public function index(){
-		$dari_tanggal = $this->input->get('dari_tanggal');
-		$sampai_tanggal = $this->input->get('sampai_tanggal');
+		$dari   = $this->input->get('dari_tanggal');
+		$sampai = $this->input->get('sampai_tanggal');
 
-		if ($this->session->userdata('level') === 'Operator') {
-			$data = array(
-				"menu" => "Barang Keluar",
-				"barang_keluar" => $this->Mbarang_keluar->get($dari_tanggal,$sampai_tanggal),
-				"dari_tanggal" => $dari_tanggal,
-				"sampai_tanggal" => $sampai_tanggal,
-				"levelUser" => $this->session->userdata('level'),
-			);
-		} else {
-			$data = array(
-				"menu" => "Permintaan Barang",
-				"barang_keluar" => $this->Mbarang_keluar->get($dari_tanggal,$sampai_tanggal),
-				"dari_tanggal" => $dari_tanggal,
-				"sampai_tanggal" => $sampai_tanggal,
-				"levelUser" => $this->session->userdata('level'),
-			); 
-		}
+		$data = [
+			'menu'          => $this->_menuTitle(),
+			'barang_keluar' => $this->Mbarang_keluar->get($dari, $sampai),
+			'dari_tanggal'  => $dari,
+			'sampai_tanggal'=> $sampai,
+			'levelUser'     => $this->session->userdata('level')
+		];
 
-		$this->load->view('tema/head',$data);
-		$this->load->view('tema/menu');
-		$this->load->view('barang_keluar/index');
-		$this->load->view('tema/footer');
+		$this->_loadView('barang_keluar/index', $data);
 	}
 
+	/* ===================== RINCIAN ===================== */
 	public function rincian($id){
-		if ($this->session->userdata('level') === 'Operator') {
-			$data = array(
-				"menu" => "Barang Keluar",
-				"dtbarang_keluar" => $this->Mbarang_keluar->get_edit($id),
-				"rincian_barang_keluar" => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
-				"pegawai" => $this->Mpegawai->get(),
-				"barang" => $this->Mbarang->get(),
-				"levelUser" => $this->session->userdata('level'),
-			);
-		} else {
-			$data = array(
-				"menu" => "Permintaan Barang",
-				"dtbarang_keluar" => $this->Mbarang_keluar->get_edit($id),
-				"rincian_barang_keluar" => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
-				"barang" => $this->Mbarang->get(),
-				"levelUser" => $this->session->userdata('level'),
-			); 
+		$data = [
+			'menu'                    => $this->_menuTitle(),
+			'dtbarang_keluar'          => $this->Mbarang_keluar->get_edit($id),
+			'rincian_barang_keluar'    => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
+			'barang'                   => $this->Mbarang->get(),
+			'levelUser'                => $this->session->userdata('level')
+		];
+
+		if ($this->_isOperator()) {
+			$data['pegawai'] = $this->Mpegawai->get();
 		}
 
-		$this->load->view('tema/head',$data);
-		$this->load->view('tema/menu');
-		$this->load->view('barang_keluar/rincian');
-		$this->load->view('tema/footer');
+		$this->_loadView('barang_keluar/rincian', $data);
 	}
 
+	/* ===================== INSERT ===================== */
 	public function insert(){
-		if ($this->session->userdata('level') === 'Operator') {
-			$data = array(
-				"menu" => "Barang Keluar",
-				"kodeUrut" => $this->Mbarang_keluar->kodeUrut(),
-				"kodeBA" => $this->Mbarang_keluar->kodeBA(),
-				"pegawai" => $this->Mpegawai->get($this->session->userdata('id_pegawai')),
-				"barang" => $this->Mbarang->get(),
-				"levelUser" => $this->session->userdata('level'),
-			);
-		} else {
-			$data = array(
-				"menu" => "Permintaan Barang",
-				"kodeUrut" => $this->Mbarang_keluar->kodeUrut(),
-				"kodeBA" => $this->Mbarang_keluar->kodeBA(),
-				"barang" => $this->Mbarang->get(),
-				"levelUser" => $this->session->userdata('level'),
-			); 
+		$data = [
+			'menu'      => $this->_menuTitle(),
+			'kodeUrut'  => $this->Mbarang_keluar->kodeUrut(),
+			'kodeBA'    => $this->Mbarang_keluar->kodeBA(),
+			'barang'    => $this->Mbarang->get(),
+			'levelUser' => $this->session->userdata('level')
+		];
+
+		if ($this->_isOperator()) {
+			$data['pegawai'] = $this->Mpegawai->get($this->session->userdata('id_pegawai'));
 		}
 
-		$this->load->view('tema/head',$data);
-		$this->load->view('tema/menu');
-		$this->load->view('barang_keluar/tambah');
-		$this->load->view('tema/footer');
+		$this->_loadView('barang_keluar/tambah', $data);
 	}
+
 	public function insert_proses(){
-		$no_berita_acara = $this->input->post('no_berita_acara');
-		$tanggal_barang_keluar = $this->input->post('tanggal_barang_keluar');
-		$query = $this->db->select('*')->from('barang_keluar')->where('no_berita_acara',$no_berita_acara)->where('tanggal_barang_keluar',$tanggal_barang_keluar)->get();
-		
-		if($query->num_rows() == 0) {
-			if ($this->session->userdata('level') === 'Operator') {
-				$this->form_validation->set_rules('id_pegawai','Pemohon','trim|required');
-				$this->form_validation->set_rules('no_berita_acara','No. berita acara','trim|required');
-				$this->form_validation->set_rules('no_bukti','No. bukti','trim|required');
-				$this->form_validation->set_rules('asal_permintaan','Asal permintaan','trim|required');
-				$this->form_validation->set_rules('tanggal_barang_keluar','Tanggal barang keluar','trim|required');
-				// $this->form_validation->set_rules('keterangan_barang_keluar','Keterangan barang keluar','trim|required');
-				$this->form_validation->set_rules('id_barang[]','Barang','trim|required');
-				$this->form_validation->set_rules('stok_barang_keluar[]','Stok Keluar','trim|required|max_length[6]|integer');
-				$this->form_validation->set_rules('permintaan[]','Permintaan','trim|required');
-				// $this->form_validation->set_rules('rincian[]','Rincian','trim|required');
-				$this->form_validation->set_error_delimiters('- ', '<br>');
-			} elseif ($this->session->userdata('level') === 'Pengusul') {
-				// $this->form_validation->set_rules('keterangan_barang_keluar','Keterangan barang keluar','trim|required');
-				$this->form_validation->set_rules('id_barang[]','Barang','trim|required');
-				$this->form_validation->set_rules('permintaan[]','Permintaan','trim|required');
-				// $this->form_validation->set_rules('rincian[]','Rincian','trim|required');
-				$this->form_validation->set_error_delimiters('- ', '<br>');
-			} else {
-				$this->form_validation->set_rules('status_barang_keluar','Statu barang keluar','trim|required');
-				$this->form_validation->set_error_delimiters('- ', '<br>');
-			}
+		$this->_setValidationInsert();
 
-			if($this->form_validation->run() == TRUE){
-				$this->Mbarang_keluar->insert();
-				$this->session->set_flashdata('konfirmasi','ditambah');
-				redirect('Barang_keluar');
-			}
-			else {
-				$this->session->set_flashdata('pesan',validation_errors());
-				redirect('Barang_keluar/insert');
-			};
-		} else {
-			$this->session->set_flashdata('pesan','Data sudah ada!');
+		if ($this->form_validation->run() === FALSE) {
+			$this->session->set_flashdata('pesan', validation_errors());
 			redirect('Barang_keluar/insert');
-		};
-	}
-	public function update($id){
-		if ($this->session->userdata('level') === 'Operator') {
-			$data = array(
-				"menu" => "Barang Keluar",
-				"dtbarang_keluar" => $this->Mbarang_keluar->get_edit($id),
-				"rincian_barang_keluar" => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
-				"pegawai" => $this->Mpegawai->get(),
-				"barang" => $this->Mbarang->get(),
-				"levelUser" => $this->session->userdata('level'),
-			);
-		} else {
-			$data = array(
-				"menu" => "Permintaan Barang",
-				"dtbarang_keluar" => $this->Mbarang_keluar->get_edit($id),
-				"rincian_barang_keluar" => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
-				"barang" => $this->Mbarang->get(),
-				"levelUser" => $this->session->userdata('level'),
-			); 
 		}
 
-		$this->load->view('tema/head',$data);
-		$this->load->view('tema/menu');
-		$this->load->view('barang_keluar/ubah');
-		$this->load->view('tema/footer');
-	}
+		$cek = $this->db->where([
+			'no_berita_acara'       => $this->input->post('no_berita_acara'),
+			'tanggal_barang_keluar'=> $this->input->post('tanggal_barang_keluar')
+		])->get('barang_keluar');
 
-	public function update_proses(){
-		if ($this->session->userdata('level') === 'Operator') {
-				$this->form_validation->set_rules('id_pegawai','Pemohon','trim|required');
-				$this->form_validation->set_rules('no_berita_acara','No. berita acara','trim|required');
-				$this->form_validation->set_rules('no_bukti','No. bukti','trim|required');
-				$this->form_validation->set_rules('asal_permintaan','Asal permintaan','trim|required');
-				$this->form_validation->set_rules('tanggal_barang_keluar','Tanggal barang keluar','trim|required');
-				// $this->form_validation->set_rules('keterangan_barang_keluar','Keterangan barang keluar','trim|required');
-				$this->form_validation->set_rules('id_barang[]','Barang','trim|required');
-				$this->form_validation->set_rules('stok_barang_keluar[]','Stok Keluar','trim|required|max_length[6]|integer');
-				$this->form_validation->set_rules('permintaan[]','Permintaan','trim|required');
-				// $this->form_validation->set_rules('rincian[]','Rincian','trim|required');
-				$this->form_validation->set_error_delimiters('- ', '<br>');
-			} elseif ($this->session->userdata('level') === 'Pengusul') {
-				// $this->form_validation->set_rules('keterangan_barang_keluar','Keterangan barang keluar','trim|required');
-				$this->form_validation->set_rules('id_barang[]','Barang','trim|required');
-				$this->form_validation->set_rules('permintaan[]','Permintaan','trim|required');
-				// $this->form_validation->set_rules('rincian[]','Rincian','trim|required');
-				$this->form_validation->set_error_delimiters('- ', '<br>');
-			} else {
-				$this->form_validation->set_rules('status_barang_keluar','Statu barang keluar','trim|required');
-				$this->form_validation->set_error_delimiters('- ', '<br>');
-			}
-
-		if($this->form_validation->run() == TRUE){
-			$this->Mbarang_keluar->update();
-			$this->session->set_flashdata('konfirmasi','diubah');
-			redirect('Barang_keluar');
+		if ($cek->num_rows() > 0) {
+			$this->session->set_flashdata('pesan', 'Data sudah ada!');
+			redirect('Barang_keluar/insert');
 		}
-		else {
-			$this->session->set_flashdata('pesan',validation_errors());
-			redirect('Barang_keluar/update/'.$this->input->post('id_barang_keluar'));
-		}
-	}
-	public function delete($id){
-		$this->Mbarang_keluar->delete($id);
-		$this->session->set_flashdata('konfirmasi','dihapus');
 
+		$this->Mbarang_keluar->insert();
+		$this->session->set_flashdata('konfirmasi', 'ditambah');
 		redirect('Barang_keluar');
 	}
 
+	/* ===================== UPDATE ===================== */
+	public function update($id){
+		$data = [
+			'menu'                  => $this->_menuTitle(),
+			'dtbarang_keluar'        => $this->Mbarang_keluar->get_edit($id),
+			'rincian_barang_keluar'  => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
+			'barang'                 => $this->Mbarang->get(),
+			'levelUser'              => $this->session->userdata('level')
+		];
+
+		if ($this->_isOperator()) {
+			$data['pegawai'] = $this->Mpegawai->get();
+		}
+
+		$this->_loadView('barang_keluar/ubah', $data);
+	}
+
+	public function update_proses(){
+		$this->_setValidationInsert();
+
+		if ($this->form_validation->run() === FALSE) {
+			$this->session->set_flashdata('pesan', validation_errors());
+			redirect('Barang_keluar/update/'.$this->input->post('id_barang_keluar'));
+		}
+
+		$this->Mbarang_keluar->update();
+		$this->session->set_flashdata('konfirmasi', 'diubah');
+		redirect('Barang_keluar');
+	}
+
+	/* ===================== DELETE ===================== */
+	public function delete($id){
+		$this->Mbarang_keluar->delete($id);
+		$this->session->set_flashdata('konfirmasi','dihapus');
+		redirect('Barang_keluar');
+	}
+
+	/* ===================== CETAK ===================== */
 	public function cetak(){
-		$dari_tanggal = $this->input->get('dari_tanggal');
-		$sampai_tanggal = $this->input->get('sampai_tanggal');
+		$dari   = $this->input->get('dari_tanggal');
+		$sampai = $this->input->get('sampai_tanggal');
 
-		$data = array(
-			"menu" => "Barang",
-			"dari_tanggal" => $dari_tanggal,
-			"sampai_tanggal" => $sampai_tanggal,
-			"barang" => $this->Mbarang->getCetak($dari_tanggal,$sampai_tanggal),
-		);
+		$data = [
+			'menu'          => 'Barang Keluar',
+			'dari_tanggal'  => $dari,
+			'sampai_tanggal'=> $sampai,
+			'barang_keluar' => $this->Mbarang_keluar->getCetak($dari, $sampai)
+		];
 
-		$data['last_query'] = $this->session->userdata('last_query');
-		$this->load->view('tema/head',$data);
-		$this->load->view('tema/menu');
-		$this->load->view('barang/cetak');
-		$this->load->view('tema/footer');
+		$this->_loadView('barang_keluar/cetak', $data);
 	}
 
 	public function hasil_cetak(){
-		$data['last_query'] = $this->db->query($this->session->userdata('last_query'));
-		$this->load->view('barang/hasil_cetak',$data);
+		$query = $this->session->userdata('last_query');
+		$data['last_query'] = $this->db->query($query);
+		$this->load->view('barang_keluar/hasil_cetak', $data);
+	}
+
+	public function cetak_permintaan($id){
+		$data = [
+			'dtbarang_keluar'        => $this->Mbarang_keluar->get_edit2($id),
+			'rincian_barang_keluar'  => $this->Mbarang_keluar->get_rincian_barang_keluar2($id)
+		];
+		$this->load->view('barang_keluar/cetak_permintaan', $data);
+	}
+
+	/* ===================== HELPER ===================== */
+	private function _menuTitle(){
+		return ($this->_isOperator()) ? 'Barang Keluar' : 'Permintaan Barang';
+	}
+
+	private function _isOperator(){
+		return $this->session->userdata('level') === 'Operator';
+	}
+
+	private function _setValidationInsert(){
+		if ($this->_isOperator()) {
+			$this->form_validation->set_rules('id_pegawai','Pemohon','required');
+			$this->form_validation->set_rules('no_berita_acara','No. Berita Acara','required');
+			$this->form_validation->set_rules('no_bukti','No. Bukti','required');
+			$this->form_validation->set_rules('asal_permintaan','Asal Permintaan','required');
+			$this->form_validation->set_rules('tanggal_barang_keluar','Tanggal','required');
+			$this->form_validation->set_rules('id_barang[]','Barang','required');
+			$this->form_validation->set_rules('stok_barang_keluar[]','Jumlah','required|integer');
+		} else {
+			$this->form_validation->set_rules('id_barang[]','Barang','required');
+			$this->form_validation->set_rules('permintaan[]','Permintaan','required');
+		}
+
+		$this->form_validation->set_error_delimiters('- ', '<br>');
+	}
+
+	private function _loadView($view, $data){
+		$this->load->view('tema/head', $data);
+		$this->load->view('tema/menu');
+		$this->load->view($view);
+		$this->load->view('tema/footer');
 	}
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

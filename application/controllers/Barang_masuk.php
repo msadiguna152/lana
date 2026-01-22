@@ -121,6 +121,30 @@ class Barang_masuk extends CI_Controller {
 		$data=$this->Mbarang_masuk->get_barang2($id);
 		echo json_encode($data);
 	}
+
+	public function cetak(){
+		$dari_tanggal = $this->input->get('dari_tanggal');
+		$sampai_tanggal = $this->input->get('sampai_tanggal');
+
+		$data = array(
+			"menu" => "Barang Masuk",
+			"dari_tanggal" => $dari_tanggal,
+			"sampai_tanggal" => $sampai_tanggal,
+			"barang_masuk" => $this->Mbarang_masuk->getCetak($dari_tanggal,$sampai_tanggal),
+		);
+
+		$data['last_query'] = $this->session->userdata('last_query');
+		$this->load->view('tema/head',$data);
+		$this->load->view('tema/menu');
+		$this->load->view('barang_masuk/cetak');
+		$this->load->view('tema/footer');
+	}
+
+	public function hasil_cetak(){
+		$data['last_query'] = $this->db->query($this->session->userdata('last_query'));
+		$this->load->view('barang_masuk/hasil_cetak',$data);
+	}
+
 }
 
 /* End of file welcome.php */

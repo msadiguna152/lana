@@ -125,4 +125,32 @@ class Mbarang_masuk extends CI_Model {
 		$kodetampil = str_pad($kode, 3, "0", STR_PAD_LEFT);    
 		return $kodetampil;  
 	}
+
+	public function getCetak($dari, $sampai)
+	{
+		$this->db->select('
+			b.kode_barang,
+			bm.no_barang_masuk,
+			bm.no_bukti,
+			bm.tanggal_barang_masuk,
+			b.nama_barang,
+			rbm.stok_barang_masuk AS jumlah_masuk,
+			b.stok_barang AS stok_akhir,
+			s.nama_satuan,
+			b.deskripsi
+			');
+		$this->db->from('rincian_barang_masuk rbm');
+		$this->db->join('barang_masuk bm', 'bm.id_barang_masuk = rbm.id_barang_masuk');
+		$this->db->join('barang b', 'b.id_barang = rbm.id_barang');
+		$this->db->join('satuan s', 's.id_satuan = b.id_satuan', 'left');
+		$this->db->where('bm.tanggal_barang_masuk >=', $dari);
+		$this->db->where('bm.tanggal_barang_masuk <=', $sampai);
+		$this->db->order_by('bm.tanggal_barang_masuk', 'ASC');
+		$this->db->order_by('bm.no_barang_masuk', 'ASC');
+
+		$sql = $this->db->get();
+
+		$this->session->set_userdata('last_query', $this->db->last_query());
+		return $sql;
+	}
 }

@@ -112,6 +112,14 @@
       <div class="modal-dialog" role="document">
         <form role="form" action="<?= site_url('Barang/cetak');?>" method="GET" enctype="multipart/form-data">
           <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+              <h5 class="modal-title" id="modalCetakLabel">
+                <i class="fa fa-print"></i> Cetak Data Barang
+              </h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
             <div class="modal-body">
               <div class="form-group">
                 <label for="dari_tanggal">Dari Tanggal</label>
