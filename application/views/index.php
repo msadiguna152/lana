@@ -70,7 +70,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="text" name="password" class="form-control" placeholder="Password" requireds>
+            <input type="password" name="password" class="form-control" placeholder="Password" requireds>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-key"></span>

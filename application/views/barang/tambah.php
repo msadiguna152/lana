@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                           <label for="deskripsi">Deskripsi</label>
-                          <textarea  class="form-control" name="deskripsi" placeholder="Masukan Deskripsi" required=""></textarea>
+                          <textarea  class="form-control" name="deskripsi" placeholder="Masukan Deskripsi"></textarea>
                         </div>
 
                       </div>

@@ -44,7 +44,7 @@ class Barang extends CI_Controller {
 			$this->form_validation->set_rules('id_satuan','Satuan barang','trim|required');
 			// $this->form_validation->set_rules('harga_barang','Harga barang','trim|required');
 			$this->form_validation->set_rules('stok_barang','Stok barang','trim|required|max_length[6]|integer');
-			$this->form_validation->set_rules('deskripsi','Deskripsi barang','trim|required');
+			// $this->form_validation->set_rules('deskripsi','Deskripsi barang','trim|required');
 
 			$this->form_validation->set_error_delimiters('- ', '<br>');
 
@@ -80,7 +80,7 @@ class Barang extends CI_Controller {
 		$this->form_validation->set_rules('id_satuan','Satuan barang','trim|required');
 		// $this->form_validation->set_rules('harga_barang','Harga barang','trim|required');
 		$this->form_validation->set_rules('stok_barang','Stok barang','trim|required|max_length[6]|integer');
-		$this->form_validation->set_rules('deskripsi','Deskripsi barang','trim|required');
+		// $this->form_validation->set_rules('deskripsi','Deskripsi barang','trim|required');
 
 		if($this->form_validation->run() == TRUE){
 			$this->Mbarang->update();

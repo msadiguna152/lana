@@ -167,10 +167,11 @@ class Barang_keluar extends CI_Controller {
 			$this->form_validation->set_rules('asal_permintaan','Asal Permintaan','required');
 			$this->form_validation->set_rules('tanggal_barang_keluar','Tanggal','required');
 			$this->form_validation->set_rules('id_barang[]','Barang','required');
-			$this->form_validation->set_rules('stok_barang_keluar[]','Jumlah','required|integer');
+			$this->form_validation->set_rules('stok_barang_keluar[]','Pemberian','required|integer');
 		} else {
-			$this->form_validation->set_rules('id_barang[]','Barang','required');
-			$this->form_validation->set_rules('permintaan[]','Permintaan','required');
+			// $this->form_validation->set_rules('id_barang[]','Barang','required');
+			// $this->form_validation->set_rules('permintaan[]','Permintaan','required');
+			$this->form_validation->set_rules('stok_barang_keluar[]','Pemberian','required|integer');
 		}
 
 		$this->form_validation->set_error_delimiters('- ', '<br>');

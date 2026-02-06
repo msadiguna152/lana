@@ -60,7 +60,7 @@
 
                         <div class="form-group">
                           <label for="deskripsi">Deskripsi</label>
-                          <textarea  class="form-control" name="deskripsi" placeholder="Masukan Deskripsi" required=""><?= $dtbarang['deskripsi']; ?></textarea>
+                          <textarea  class="form-control" name="deskripsi" placeholder="Masukan Deskripsi"><?= $dtbarang['deskripsi']; ?></textarea>
                         </div>
 
                       </div>

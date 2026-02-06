@@ -140,7 +140,7 @@
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
-                                    <textarea class="form-control" id="rincian" value="" name="rincian[]" placeholder="Masukan Rincian / Keterangan" required><?= $data2->rincian;?></textarea>
+                                    <textarea class="form-control" id="rincian" value="" name="rincian[]" placeholder="Masukan Rincian / Keterangan"><?= $data2->rincian;?></textarea>
                                   </td>
                                 </tr>
                               <?php } else { ?>

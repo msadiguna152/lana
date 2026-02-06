@@ -32,7 +32,7 @@
         <th style="text-align: center; vertical-align: middle;">Stok Akhir</th>
         <th style="text-align: center; vertical-align: middle;">Satuan</th>
         <!-- <th style="text-align: center; vertical-align: middle;">Harga</th> -->
-        <th style="text-align: center; vertical-align: middle;">Deskripsi</th>
+        <!-- <th style="text-align: center; vertical-align: middle;">Deskripsi</th> -->
       </tr>
     </thead>
     <tbody>
@@ -45,7 +45,7 @@
         <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_keluar) ?></td>
         <td style="text-align: center; vertical-align: middle;"><b><?= number_format($data->stok_akhir) ?></b></td>
         <td style="text-align: center; vertical-align: middle;"><?= $data->nama_satuan;?></td>
-        <td style="text-align: center; vertical-align: middle;"><?= $data->deskripsi;?></td>
+        <!-- <td style="text-align: center; vertical-align: middle;"><?= $data->deskripsi;?></td> -->
       </tr>
       <?php $no++; endforeach;?>
     </tbody>
