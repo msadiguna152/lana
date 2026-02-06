@@ -54,7 +54,7 @@
       <div class="card-header text-center">
         <!-- <img src="<?= base_url('assets/logo2.png')?>" class="img img-fluid" style="height: 200px;"><br> -->
         <!-- <a href="" class="h5 text-info"><b>S I M I S T I K </b>TALA</a><br> -->
-        <a class="text text-dark"><b>Sistem Informasi Manajemen Barang Habis Pakai - Kantah Kab. Tanah Laut</b></a>
+        <a class="text text-dark"><b>SIP ATK - Kantah Kab. Tanah Laut</b></a>
 
       </div>
       <div class="card-body">
