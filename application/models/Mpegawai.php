@@ -28,9 +28,15 @@ class Mpegawai extends CI_Model {
 		
 		return $query = $this->db->get();
 	}
+
 	public function get_edit($id)
 	{
 		return $this->db->query("SELECT * from pegawai where id_pegawai='$id'")->row_array();
+	}
+
+	public function get_jabatan($id)
+	{
+		return $this->db->select('id_jabatan,nama_jabatan')->from('jabatan')->where('id_bidang',$id)->order_by('nama_jabatan','ASC')->get();
 	}
 
 	public function update()

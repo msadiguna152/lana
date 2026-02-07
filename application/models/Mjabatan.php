@@ -5,13 +5,14 @@ class Mjabatan extends CI_Model {
 	{
 		$data = array(
 			'nama_jabatan'=> $this->input->post('nama_jabatan'),
+			'id_bidang'=> $this->input->post('id_bidang'),
 			'keterangan_jabatan'=> $this->input->post('keterangan_jabatan'),
 		);
 		$this->db->insert('jabatan',$data);
 	}
 	public function get()
 	{
-		$query = $this->db->select('*')->from('jabatan')->order_by('id_jabatan','DESC')->get();
+		$query = $this->db->select('*')->from('jabatan j')->join('bidang b','j.id_bidang=b.id_bidang','left')->order_by('id_jabatan','DESC')->get();
 		return $query;
 	}
 	public function get_edit($id)
@@ -22,6 +23,7 @@ class Mjabatan extends CI_Model {
 	{
 		$data = array(
 			'nama_jabatan'=> $this->input->post('nama_jabatan'),
+			'id_bidang'=> $this->input->post('id_bidang'),
 			'keterangan_jabatan'=> $this->input->post('keterangan_jabatan'),
 		);
 		$where = array('id_jabatan' => $this->input->post('id_jabatan'));
@@ -37,31 +39,48 @@ class Mjabatan extends CI_Model {
 
 	public function insert_excel()
 	{
-		$file_tmp = $_FILES['file']['tmp_name'];
-		$file_name = $_FILES['file']['name'];
-		$file_size = $_FILES['file']['size'];
-		$file_type = $_FILES['file']['type'];
-        // move_uploaded_file($file_tmp,"uploads/".$file_name); // simpan filenya di folder uploads
+		if (!isset($_FILES['file']['tmp_name'])) return false;
+		$object = PHPExcel_IOFactory::load($_FILES['file']['tmp_name']);
+    	$this->db->trans_start();
 
-		$object = PHPExcel_IOFactory::load($file_tmp);
+    	foreach ($object->getWorksheetIterator() as $worksheet) {
 
-		foreach($object->getWorksheetIterator() as $worksheet){
+    		$highestRow = $worksheet->getHighestRow();
 
-			$highestRow = $worksheet->getHighestRow();
-			$highestColumn = $worksheet->getHighestColumn();
+    		for ($row = 2; $row <= $highestRow; $row++) {
 
-			for($row=2; $row<=$highestRow; $row++){
-				$nama_jabatan =  strtolower($worksheet->getCellByColumnAndRow(1, $row)->getValue());
-				$keterangan_jabatan =  $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+    			$nama_jabatan = strtolower(trim($worksheet->getCellByColumnAndRow(1, $row)->getValue()));
+    			$nama_bidang  = strtolower(trim($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
 
-				$query = $this->db->select('*')->from('jabatan')->where('nama_jabatan',$nama_jabatan)->get();
-				if($query->num_rows() == 0 AND $nama_jabatan != NULL) {
-					$data = array('nama_jabatan' => ucwords($nama_jabatan), 'keterangan_jabatan' => $keterangan_jabatan);
-					$this->db->insert('jabatan',$data);
-				}
-			}
+    			if (empty($nama_jabatan) || empty($nama_bidang)) continue;
 
-			// echo var_dump($highestColumn);
-		}
-	}
+    			/* ====== CEK / INSERT BIDANG ====== */
+    			$bidang = $this->db->where('LOWER(nama_bidang)', $nama_bidang, false)->get('bidang')->row_array();
+
+    			if ($bidang) {
+    				$id_bidang = $bidang['id_bidang'];
+    			} else {
+    				$this->db->insert('bidang', [
+    					'nama_bidang' => ucwords($nama_bidang)
+    				]);
+    				$id_bidang = $this->db->insert_id();
+    			}
+
+    			/* ====== CEK JABATAN ====== */
+    			$exists = $this->db->where('LOWER(nama_jabatan)', $nama_jabatan, false)->where('id_bidang', $id_bidang)->get('jabatan')->num_rows();
+
+    			if ($exists == 0) {
+    				$this->db->insert('jabatan', [
+    					'nama_jabatan'       => ucwords($nama_jabatan),
+    					'keterangan_jabatan' => $keterangan,
+    					'id_bidang'          => $id_bidang
+    				]);
+    			}
+    		}
+    	}
+
+    	$this->db->trans_complete();
+    	return $this->db->trans_status();
+    }
+
 }

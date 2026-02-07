@@ -30,7 +30,6 @@ class Pegawai extends CI_Controller {
 	public function insert(){
 		$data = array(
 			"menu" => "Pegawai",
-			"jabatan" => $this->Mjabatan->get(),
 			"pangkat" => $this->Mpangkat->get(),
 			"bidang" => $this->Mbidang->get(),
 		);
@@ -79,22 +78,22 @@ class Pegawai extends CI_Controller {
 	public function update($id){
 		if ($this->session->userdata('level') === 'Operator') {
 			$data = array(
-			"menu" => "Pegawai",
-			"dtpegawai" => $this->Mpegawai->get_edit($id),
-			"jabatan" => $this->Mjabatan->get(),
-			"pangkat" => $this->Mpangkat->get(),
-			"bidang" => $this->Mbidang->get(),
-			"levelUser" => $this->session->userdata('level'),
-		); 
+				"menu" => "Pegawai",
+				"dtpegawai" => $this->Mpegawai->get_edit($id),
+				"jabatan" => $this->Mpegawai->get_jabatan($id),
+				"pangkat" => $this->Mpangkat->get(),
+				"bidang" => $this->Mbidang->get(),
+				"levelUser" => $this->session->userdata('level'),
+			); 
 		} else {
 			$data = array(
-			"menu" => "Biodata",
-			"dtpegawai" => $this->Mpegawai->get_edit($id),
-			"jabatan" => $this->Mjabatan->get(),
-			"pangkat" => $this->Mpangkat->get(),
-			"bidang" => $this->Mbidang->get(),
-			"levelUser" => $this->session->userdata('level'),
-		); 
+				"menu" => "Biodata",
+				"dtpegawai" => $this->Mpegawai->get_edit($id),
+				"jabatan" => $this->Mpegawai->get_jabatan($id),
+				"pangkat" => $this->Mpangkat->get(),
+				"bidang" => $this->Mbidang->get(),
+				"levelUser" => $this->session->userdata('level'),
+			); 
 		}
 
 		$this->load->view('tema/head',$data);
@@ -142,6 +141,15 @@ class Pegawai extends CI_Controller {
 		$this->Mpegawai->delete($id);
 		$this->session->set_flashdata('konfirmasi','dihapus');
 		redirect('Pegawai');
+	}
+
+	public function get_by_bidang()
+	{
+		$id_bidang = $this->input->post('id_bidang', true);
+
+		$data = $this->db->select('id_jabatan,nama_jabatan')->from('jabatan')->where('id_bidang', $id_bidang)->order_by('nama_jabatan', 'ASC')->get()->result();
+
+		echo json_encode($data);
 	}
 }
 

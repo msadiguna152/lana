@@ -109,31 +109,30 @@ class Mbarang extends CI_Model {
 					}
 				}
 			}
-
-			// echo var_dump($highestColumn);
 		}
 	}
 
 	public function getCetak($dari, $sampai)
 	{
-		$this->db->select('barang.id_barang, barang.kode_barang, barang.nama_barang, barang.deskripsi, satuan.nama_satuan, COALESCE(SUM(CASE WHEN barang_masuk.tanggal_barang_masuk BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_masuk.stok_barang_masuk ELSE 0 END),0) AS total_masuk, COALESCE(SUM(CASE WHEN barang_keluar.tanggal_barang_keluar BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_keluar.stok_barang_keluar ELSE 0 END),0) AS total_keluar, (COALESCE(SUM(CASE WHEN barang_masuk.tanggal_barang_masuk BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_masuk.stok_barang_masuk ELSE 0 END),0) - COALESCE(SUM(CASE WHEN barang_keluar.tanggal_barang_keluar BETWEEN "'.$dari.'" AND "'.$sampai.'" THEN rincian_barang_keluar.stok_barang_keluar ELSE 0 END),0)) AS stok_akhir', false);
+		$dari   = $this->db->escape($dari);
+		$sampai = $this->db->escape($sampai);
 
-		$this->db->from('barang');
-		$this->db->join('satuan', 'barang.id_satuan = satuan.id_satuan', 'left');
-		$this->db->join('rincian_barang_masuk', 'barang.id_barang = rincian_barang_masuk.id_barang', 'left');
-		$this->db->join('barang_masuk', 'rincian_barang_masuk.id_barang_masuk = barang_masuk.id_barang_masuk', 'left');
-		$this->db->join('rincian_barang_keluar', 'barang.id_barang = rincian_barang_keluar.id_barang', 'left');
-		$this->db->join('barang_keluar', 'rincian_barang_keluar.id_barang_keluar = barang_keluar.id_barang_keluar', 'left');
+		$this->db->select('b.id_barang,b.kode_barang,b.nama_barang,b.deskripsi,s.nama_satuan,COALESCE(m.total_masuk,0) AS total_masuk,COALESCE(k.total_keluar,0) AS total_keluar,(COALESCE(m.total_masuk,0)-COALESCE(k.total_keluar,0)) AS stok_akhir', false);
 
-		$this->db->group_by('barang.id_barang');
-		$this->db->order_by('barang.id_barang', 'ASC');
+		$this->db->from('barang b');
+		$this->db->join('satuan s','b.id_satuan=s.id_satuan','left');
+
+		$this->db->join('(SELECT rbm.id_barang,SUM(rbm.stok_barang_masuk) AS total_masuk FROM rincian_barang_masuk rbm JOIN barang_masuk bm ON rbm.id_barang_masuk=bm.id_barang_masuk WHERE bm.tanggal_barang_masuk BETWEEN '.$dari.' AND '.$sampai.' GROUP BY rbm.id_barang) m','b.id_barang=m.id_barang','left',false);
+
+		$this->db->join('(SELECT rbk.id_barang,SUM(rbk.stok_barang_keluar) AS total_keluar FROM rincian_barang_keluar rbk JOIN barang_keluar bk ON rbk.id_barang_keluar=bk.id_barang_keluar WHERE bk.tanggal_barang_keluar BETWEEN '.$dari.' AND '.$sampai.' GROUP BY rbk.id_barang) k','b.id_barang=k.id_barang','left',false);
+
+		$this->db->order_by('b.id_barang','ASC');
+		$this->db->having('stok_akhir >',0);
 
 		$sql = $this->db->get();
 
 		$this->session->set_userdata('last_query', $this->db->last_query());
 		return $sql;
-		
-
 	}
 
 	public function get_barang($id_barang)

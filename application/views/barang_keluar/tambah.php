@@ -34,7 +34,7 @@
                         <div class="form-group">
                           <label for="id_pegawai">Pemohon</label>
                           <?php if ($this->session->userdata('level') === 'Operator') { ?>
-                            <select class="form-control select2bs4" style="width: 100%;" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
+                            <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
                               <option value="" selected disabled>---Pilih Pemohon---</option>
                               <?php foreach ($pegawai->result() as $dtpegawai) : ?>
                                 <option value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
@@ -47,7 +47,7 @@
 
                         <div class="form-group">
                           <label for="asal_permintaan">Asal Permintaan</label>
-                          <input type="text" <?= ($levelUser === 'Operator') ? '' : 'readonly'; ?> class="form-control" value="" name="asal_permintaan" placeholder="Masukan Asal Permintaan">
+                          <input type="text" <?= ($levelUser === 'Operator') ? '' : 'readonly'; ?> class="form-control" id="asal_permintaan" name="asal_permintaan" readonly placeholder="Masukan Asal Permintaan">
                         </div>
 
                       </div>

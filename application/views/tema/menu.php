@@ -10,7 +10,7 @@
           <a class="nav-link text-info" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-info"><marquee><b>Sistem Informasi Manajemen Barang Habis Pakai - Kantah Kab. Tanah Laut</b></marquee></a>
+          <a class="nav-link text-info"><marquee><b>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</b></marquee></a>
         </li>
       </ul>
 
@@ -53,8 +53,8 @@
     </nav>
     <aside class="main-sidebar elevation-4 sidebar-light-info">
       <a href="" class="brand-link bg-info">
-        <img src="<?= base_url('assets/logo_tala.png');?>" alt="AdminLTE Logo" class="brand-image" style="">
-        <span class="brand-text font-weight-light"><b>S I M B H P</b></span>
+        <img src="<?= base_url('assets/logo.png');?>" alt="Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut" class="brand-image" style="">
+        <span class="brand-text font-weight-light"><b>SIP ATK</b></span>
       </a>
 
       <div class="sidebar">

@@ -37,7 +37,7 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center text-info">Data Penerimaan Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
+                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center text-info">Data Barang Masuk Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
                   <div class="table-responsive">
                     <table id="example2" width="100%" class="table table-bordered table-hover">
                       <thead align="center">

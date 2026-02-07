@@ -4,6 +4,8 @@ class Jabatan extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Mjabatan');
+		$this->load->model('Mbidang');
+
 		
 	}
 	public function index(){
@@ -20,6 +22,7 @@ class Jabatan extends CI_Controller {
 	public function insert(){
 		$data = array(
 			"menu" => "Jabatan",
+			"bidang" => $this->Mbidang->get(),
 		);
 
 		$this->load->view('tema/head',$data);
@@ -29,7 +32,6 @@ class Jabatan extends CI_Controller {
 	}
 	public function insert_proses(){
 		$this->form_validation->set_rules('nama_jabatan','Nama jabatan','required');
-		$this->form_validation->set_rules('keterangan_jabatan','Keterangan jabatan','required');
 		$this->form_validation->set_error_delimiters('- ', '<br>');
 
 		if($this->form_validation->run() == TRUE){
@@ -45,6 +47,7 @@ class Jabatan extends CI_Controller {
 	public function update($id){
 		$data = array(
 			"menu" => "Jabatan",
+			"bidang" => $this->Mbidang->get(),
 			"dtjabatan" => $this->Mjabatan->get_edit($id)
 		);
 
@@ -55,7 +58,6 @@ class Jabatan extends CI_Controller {
 	}
 	public function update_proses(){
 		$this->form_validation->set_rules('nama_jabatan','Nama jabatan','required');
-		$this->form_validation->set_rules('keterangan_jabatan','Keterangan jabatan','required');
 		$this->form_validation->set_error_delimiters('- ', '<br>');
 
 		if($this->form_validation->run() == TRUE){

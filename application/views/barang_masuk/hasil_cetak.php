@@ -37,7 +37,6 @@
         <th>Nama Barang</th>
         <th>Barang Masuk</th>
         <th>Satuan</th>
-        <th>Deskripsi</th>
       </tr>
     </thead>
     <tbody>
@@ -51,7 +50,6 @@
         <td class="left"><?= $data->nama_barang; ?></td>
         <td><b><?= number_format($data->jumlah_masuk); ?></b></td>
         <td><?= $data->nama_satuan; ?></td>
-        <td class="left"><?= $data->deskripsi; ?></td>
       </tr>
       <?php $no++; endforeach;?>
     </tbody>

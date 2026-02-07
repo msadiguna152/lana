@@ -44,8 +44,8 @@
 
                         <div class="form-group">
                           <label for="id_bidang">Seksi</label>
-                          <select class="form-control select2bs4" name="id_bidang" data-placeholder="---Pilih Seksi---" required="">
-                            <option value="">---Pilih Seksi---</option>
+                          <select class="form-control select2bs4" name="id_bidang" id="id_bidang" data-placeholder="--- Pilih Seksi ---" required="">
+                            <option value="">--- Pilih Seksi ---</option>
                             <?php foreach ($bidang->result() as $dtbidang) : ?>
                               <option value="<?= $dtbidang->id_bidang;?>"><?= $dtbidang->nama_bidang;?></option>
                             <?php endforeach;?>
@@ -67,12 +67,9 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="id_jabatan">Jabatan</label>
-                          <select class="form-control select2bs4" name="id_jabatan" data-placeholder="---Pilih Jabatan---" required="">
-                            <option value="">---Pilih Jabatan---</option>
-                            <?php foreach ($jabatan->result() as $dtjabatan) : ?>
-                              <option value="<?= $dtjabatan->id_jabatan;?>"><?= $dtjabatan->nama_jabatan;?></option>
-                            <?php endforeach;?>
+                          <label>Jabatan</label>
+                          <select class="form-control select2bs4" name="id_jabatan" id="id_jabatan" required>
+                            <option value="">--- Pilih Jabatan ---</option>
                           </select>
                         </div>
 

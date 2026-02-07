@@ -41,6 +41,7 @@
                         <tr>
                           <th>No</th>
                           <th>Nama Jabatan</th>
+                          <th>Seksi</th>
                           <th>Keterangan Jabatan</th>
                           <th>Opsi</th>
                         </tr>
@@ -50,6 +51,8 @@
                         <tr>
                           <td style="text-align: center; vertical-align: middle;"><?= $no;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_jabatan;?></td>
+                          <td style="text-align: center; vertical-align: middle;"><?= $data->nama_bidang;?></td>
+
                           <td style="text-align: center; vertical-align: middle;"><?= $data->keterangan_jabatan;?></td>
                           <td style="text-align: center; vertical-align: middle;">
                             <a href="<?= site_url('Jabatan/update/'.$data->id_jabatan);?>" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Ubah Data <?= $menu;?>">

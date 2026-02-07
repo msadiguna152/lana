@@ -30,7 +30,7 @@ class Barang_keluar extends CI_Controller {
 	/* ===================== RINCIAN ===================== */
 	public function rincian($id){
 		$data = [
-			'menu'                    => $this->_menuTitle(),
+			'menu'                     => $this->_menuTitle(),
 			'dtbarang_keluar'          => $this->Mbarang_keluar->get_edit($id),
 			'rincian_barang_keluar'    => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
 			'barang'                   => $this->Mbarang->get(),
@@ -87,7 +87,7 @@ class Barang_keluar extends CI_Controller {
 	/* ===================== UPDATE ===================== */
 	public function update($id){
 		$data = [
-			'menu'                  => $this->_menuTitle(),
+			'menu'                   => $this->_menuTitle(),
 			'dtbarang_keluar'        => $this->Mbarang_keluar->get_edit($id),
 			'rincian_barang_keluar'  => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
 			'barang'                 => $this->Mbarang->get(),
@@ -150,6 +150,28 @@ class Barang_keluar extends CI_Controller {
 		$this->load->view('barang_keluar/cetak_permintaan', $data);
 	}
 
+	public function get_seksi_by_pegawai()
+	{
+		$id_pegawai = $this->input->post('id_pegawai', true);
+
+		$data = $this->db->select('b.nama_bidang')
+		->from('pegawai p')
+		->join('jabatan j', 'j.id_jabatan = p.id_jabatan', 'left')
+		->join('bidang b', 'b.id_bidang = j.id_bidang', 'left')
+		->where('p.id_pegawai', $id_pegawai)
+		->get()
+		->row();
+
+		if ($data) {
+			echo json_encode([
+				'status' => true,
+				'nama_bidang' => $data->nama_bidang
+			]);
+		} else {
+			echo json_encode(['status' => false]);
+		}
+	}
+
 	/* ===================== HELPER ===================== */
 	private function _menuTitle(){
 		return ($this->_isOperator()) ? 'Barang Keluar' : 'Permintaan Barang';
@@ -169,8 +191,6 @@ class Barang_keluar extends CI_Controller {
 			$this->form_validation->set_rules('id_barang[]','Barang','required');
 			$this->form_validation->set_rules('stok_barang_keluar[]','Pemberian','required|integer');
 		} else {
-			// $this->form_validation->set_rules('id_barang[]','Barang','required');
-			// $this->form_validation->set_rules('permintaan[]','Permintaan','required');
 			$this->form_validation->set_rules('stok_barang_keluar[]','Pemberian','required|integer');
 		}
 

@@ -42,38 +42,40 @@ class Mbarang_keluar extends CI_Model {
 
 		}
 	}
-	public function get($dari_tanggal,$sampai_tanggal)
+	
+	public function get($dari_tanggal = null, $sampai_tanggal = null)
 	{
-		if ($dari_tanggal!=NULL AND $sampai_tanggal!=NULL) {
-			$this->db->select('*');
-			$this->db->from('barang_keluar');
-			$this->db->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai','LEFT');
-			$this->db->join('jabatan','jabatan.id_jabatan=pegawai.id_jabatan','LEFT');
-			if ($this->session->userdata('level') === 'Pengusul') {
-				$this->db->where('barang_keluar.id_pegawai', $this->session->userdata('id_pegawai'));
-			} elseif ($this->session->userdata('level') === 'Penyetuju') {
-				$this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
-			};
-			$this->db->where('tanggal_barang_keluar>=',$dari_tanggal);
-			$this->db->where('tanggal_barang_keluar<=',$sampai_tanggal);
-			$this->db->order_by('id_barang_keluar','DESC');
-		} else {
-			$filter = explode("-",date("Y-m-d"));
-			$this->db->select('*');
-			$this->db->from('barang_keluar');
-			$this->db->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai','LEFT');
-			$this->db->join('jabatan','jabatan.id_jabatan=pegawai.id_jabatan');
-			if ($this->session->userdata('level') === 'Pengusul') {
-				$this->db->where('barang_keluar.id_pegawai', $this->session->userdata('id_pegawai'));
-			} elseif ($this->session->userdata('level') === 'Penyetuju') {
-				$this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
-			};
-			// $this->db->where('MONTH(tanggal_barang_keluar)',$filter['1']);
-			// $this->db->where('YEAR(tanggal_barang_keluar)',$filter['0']);
-			$this->db->order_by('id_barang_keluar','DESC');
+		$this->db->select('*')
+		->from('barang_keluar')
+		->join('pegawai', 'pegawai.id_pegawai = barang_keluar.id_pegawai', 'left')
+		->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan', 'left');
+
+		/* ===== FILTER ROLE ===== */
+		if ($this->session->userdata('level') === 'Pengusul') {
+			$this->db->where('barang_keluar.id_pegawai', $this->session->userdata('id_pegawai'));
+		} elseif ($this->session->userdata('level') === 'Penyetuju') {
+			$this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
 		}
-		return $query = $this->db->get();
+
+		/* ===== FILTER TANGGAL ===== */
+		if (!empty($dari_tanggal) && !empty($sampai_tanggal)) {
+			$this->db->where('tanggal_barang_keluar >=', $dari_tanggal);
+			$this->db->where('tanggal_barang_keluar <=', $sampai_tanggal);
+
+		} else {
+        	// default: 2 tahun terakhir (rolling)
+			$tanggal_awal  = date('Y-m-d', strtotime('-2 years'));
+			$tanggal_akhir = date('Y-m-d');
+
+			$this->db->where('tanggal_barang_keluar >=', $tanggal_awal);
+			$this->db->where('tanggal_barang_keluar <=', $tanggal_akhir);
+		}
+
+		$this->db->order_by('id_barang_keluar', 'DESC');
+
+		return $this->db->get();
 	}
+
 
 	public function get_permintaan($bulan_tahun)
 	{
@@ -268,28 +270,28 @@ class Mbarang_keluar extends CI_Model {
 
 	public function getCetak($dari, $sampai)
 	{
-		 $this->db->select('
-            bk.no_berita_acara,
-            bk.no_bukti,
-            bk.asal_permintaan,
-            bk.tanggal_barang_keluar,
-            b.kode_barang,
-            b.nama_barang,
-            rbk.stok_barang_keluar AS jumlah_keluar,
-            s.nama_satuan,
-            rbk.rincian,
-            bk.keterangan_barang_keluar,
-            p.nama_pegawai,
-        ');
-        $this->db->from('rincian_barang_keluar rbk');
-        $this->db->join('barang_keluar bk', 'bk.id_barang_keluar = rbk.id_barang_keluar');
-        $this->db->join('pegawai p', 'p.id_pegawai = bk.id_pegawai', 'left');
-        $this->db->join('barang b', 'b.id_barang = rbk.id_barang');
-        $this->db->join('satuan s', 's.id_satuan = b.id_satuan', 'left');
-        $this->db->where('bk.tanggal_barang_keluar >=', $dari);
-        $this->db->where('bk.tanggal_barang_keluar <=', $sampai);
-        $this->db->order_by('bk.tanggal_barang_keluar', 'ASC');
-        $this->db->order_by('bk.no_bukti', 'ASC');
+		$this->db->select('
+			bk.no_berita_acara,
+			bk.no_bukti,
+			bk.asal_permintaan,
+			bk.tanggal_barang_keluar,
+			b.kode_barang,
+			b.nama_barang,
+			rbk.stok_barang_keluar AS jumlah_keluar,
+			s.nama_satuan,
+			rbk.rincian,
+			bk.keterangan_barang_keluar,
+			p.nama_pegawai,
+			');
+		$this->db->from('rincian_barang_keluar rbk');
+		$this->db->join('barang_keluar bk', 'bk.id_barang_keluar = rbk.id_barang_keluar');
+		$this->db->join('pegawai p', 'p.id_pegawai = bk.id_pegawai', 'left');
+		$this->db->join('barang b', 'b.id_barang = rbk.id_barang');
+		$this->db->join('satuan s', 's.id_satuan = b.id_satuan', 'left');
+		$this->db->where('bk.tanggal_barang_keluar >=', $dari);
+		$this->db->where('bk.tanggal_barang_keluar <=', $sampai);
+		$this->db->order_by('bk.tanggal_barang_keluar', 'ASC');
+		$this->db->order_by('bk.no_bukti', 'ASC');
 
 		$sql = $this->db->get();
 

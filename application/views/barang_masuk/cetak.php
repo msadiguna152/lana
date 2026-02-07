@@ -27,7 +27,10 @@
                 <div class="card-header">
                   <div class="row">
                     <div class="col-lg-2 col-md-6 col-sm-12">
-                      <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Filter</a>
+                      <a onclick="history.back(-1)" name="reset"  class="btn btn-block btn-info">Kembali</a>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                      <a data-toggle="modal" data-target="#exampleModal" class="btn btn-block btn-info">Filter</a>
                     </div>
                     <div class="col-lg-2 col-md-6 col-sm-12">
                       <a href="<?= site_url('Barang_masuk/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a>

@@ -52,10 +52,9 @@
     <!-- /.login-logo -->
     <div class="card bg-white shadow">
       <div class="card-header text-center">
-        <!-- <img src="<?= base_url('assets/logo2.png')?>" class="img img-fluid" style="height: 200px;"><br> -->
-        <!-- <a href="" class="h5 text-info"><b>S I M I S T I K </b>TALA</a><br> -->
-        <a class="text text-dark"><b>SIP ATK - Kantah Kab. Tanah Laut</b></a>
-
+        <img src="<?= base_url('assets/logo.png')?>" class="img img-fluid m-3" style="height: 200px;"><br>
+        <a class="h5 text-info"><b>SIP ATK </b></a><br>
+        <a class="text text-dark"><b>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</b></a>
       </div>
       <div class="card-body">
         <?= $this->session->flashdata('pesan');?>

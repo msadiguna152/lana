@@ -1,6 +1,6 @@
 
 <footer class="main-footer">
-  <img src="<?= base_url('assets/logo_tala.png');?>" alt="Kab. Tala Logo" class="img img-fluid ml-3" style="height: 25px;">
+  <img src="<?= base_url('assets/logo.png');?>" alt="Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut" class="img img-fluid" style="height: 25px;">
   <div class="float-right d-none d-sm-inline-block">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>All rights reserved.
   </div>
@@ -35,6 +35,65 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Bootstrap Switch -->
 <script src="<?= base_url('assets/')?>plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+$(document).ready(function () {
+
+  $('#id_pegawai').on('change', function () {
+    let id_pegawai = $(this).val();
+
+    if (id_pegawai) {
+      $.ajax({
+        url: "<?= base_url('Barang_keluar/get_seksi_by_pegawai'); ?>",
+        type: "POST",
+        data: { id_pegawai: id_pegawai },
+        dataType: "json",
+        success: function (res) {
+          if (res.status === true) {
+            $('#asal_permintaan').val(res.nama_bidang);
+          } else {
+            $('#asal_permintaan').val('');
+          }
+        }
+      });
+    } else {
+      $('#asal_permintaan').val('');
+    }
+
+  });
+
+});
+</script>
+
+<script>
+  $(document).ready(function () {
+
+    $('#id_bidang').on('change', function () {
+      let id_bidang = $(this).val();
+
+      $('#id_jabatan').html('<option value="">Loading...</option>');
+
+      if (id_bidang !== '') {
+        $.ajax({
+          url: "<?= base_url('Pegawai/get_by_bidang'); ?>",
+          type: "POST",
+          data: {id_bidang: id_bidang},
+          dataType: "json",
+          success: function (data) {
+            let option = '<option value="">--- Pilih Jabatan ---</option>';
+            $.each(data, function (i, val) {
+              option += '<option value="'+val.id_jabatan+'">'+val.nama_jabatan+'</option>';
+            });
+            $('#id_jabatan').html(option).trigger('change');
+          }
+        });
+      } else {
+        $('#id_jabatan').html('<option value="">--- Pilih Jabatan ---</option>');
+      }
+    });
+
+  });
+</script>
+
 
 <script type="text/javascript">
   $(function () {

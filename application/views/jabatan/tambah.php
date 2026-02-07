@@ -26,8 +26,19 @@
                         </div>
 
                         <div class="form-group">
+                          <label for="id_bidang">Seksi</label>
+                          <select class="form-control select2bs4" name="id_bidang" data-placeholder="--- Pilih Seksi ---" required="">
+                            <option value="">--- Pilih Seksi ---</option>
+                            <?php foreach ($bidang->result() as $dtbidang) : ?>
+                              <option value="<?= $dtbidang->id_bidang;?>"><?= $dtbidang->nama_bidang;?></option>
+                            <?php endforeach;?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="form-group">
                           <label for="keterangan_jabatan">Keterangan Jabatan</label>
-                          <textarea class="form-control" name="keterangan_jabatan" placeholder="Masukan Keterangan Jabatan" required=""></textarea>
+                          <textarea class="form-control" style="height: 124px;" name="keterangan_jabatan" placeholder="Masukan Keterangan Jabatan"></textarea>
                         </div>
                       </div>
 

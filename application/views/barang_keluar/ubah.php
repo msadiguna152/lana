@@ -35,7 +35,7 @@
                         <div class="form-group">
                           <label for="id_pegawai">Pemohon</label>
                           <?php if ($this->session->userdata('level') === 'Operator') { ?>
-                            <select class="form-control select2bs4" style="width: 100%;" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
+                            <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
                               <option value="" selected disabled>---Pilih Pemohon---</option>
                               <?php foreach ($pegawai->result() as $dtpegawai) : ?>
                                 <option <?= $dtbarang_keluar['id_pegawai']==$dtpegawai->id_pegawai ?'selected':'';?> value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
@@ -48,7 +48,7 @@
 
                         <div class="form-group">
                           <label for="asal_permintaan">Asal Permintaan</label>
-                          <input type="text" class="form-control" <?= ($levelUser === 'Operator') ? '' : 'readonly'; ?> value="<?= $dtbarang_keluar['asal_permintaan']; ?>" name="asal_permintaan" placeholder="Masukan Asal Permintaan">
+                          <input type="text" class="form-control" id="asal_permintaan" value="<?= $dtbarang_keluar['asal_permintaan']; ?>" name="asal_permintaan" readonly>
                         </div>
 
                       </div>
@@ -109,7 +109,7 @@
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
-                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" required>
+                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang+$data2->stok_barang_keluar;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" required>
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
@@ -136,7 +136,7 @@
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;" <?= ($levelUser !== 'Operator') ? 'hidden' : ''; ?>>
-                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
+                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang+$data2->stok_barang_keluar;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
@@ -162,7 +162,7 @@
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;" >
-                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" required>
+                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang+$data2->stok_barang_keluar;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" required>
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">

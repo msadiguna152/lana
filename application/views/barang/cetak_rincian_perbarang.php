@@ -39,7 +39,7 @@
 
 <body onload="window.print()">
 
-<h3>RINCIAN TRANSAKSI BARANG</h3>
+<h3>LAPORAN MUTASI BARANG</h3>
 
 <div class="info">
     <div><b>Nama Barang</b>: <?= $barang->nama_barang ?></div>
@@ -58,7 +58,6 @@
             <th>Jumlah</th>
             <th>Jumlah Akhir</th>
             <th>Pemohon</th>
-            <th>Keterangan</th>
         </tr>
     </thead>
     <tbody>
@@ -89,7 +88,6 @@
             <td><?= number_format($r['jumlah']) ?></td>
             <td><b><?= number_format($saldo) ?></b></td>
             <td><?= !empty($r['nama_pegawai']) ? $r['nama_pegawai'] : '-' ?></td>
-            <td><?= $r['keterangan'] ?></td>
         </tr>
         <?php endforeach; ?>
 

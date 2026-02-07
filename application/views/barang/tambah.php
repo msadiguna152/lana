@@ -23,7 +23,7 @@
 
                         <div class="form-group">
                           <label for="kode_barang">Kode Barang</label>
-                          <input type="text" class="form-control" name="kode_barang" placeholder="Masukan Kode Barang" required="">
+                          <input type="text" onkeypress="return hanyaAngka(event)" class="form-control" name="kode_barang" placeholder="Masukan Kode Barang" required="">
                         </div>
 
                         <div class="form-group">
@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                           <label for="deskripsi">Deskripsi</label>
-                          <textarea  class="form-control" name="deskripsi" placeholder="Masukan Deskripsi"></textarea>
+                          <textarea class="form-control" name="deskripsi" placeholder="Masukan Deskripsi"></textarea>
                         </div>
 
                       </div>

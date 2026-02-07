@@ -67,7 +67,7 @@
   KANTOR PERTANAHAN KABUPATEN TANAH LAUT
 </p>
 
-<p class="right">Pelaihari, <?= format_indo(date('Y-m-d')) ?></p>
+<p class="right">Pelaihari, <?= format_indo($dtbarang_keluar['tanggal_barang_keluar']) ?></p>
 
 <table class="no-border">
   <tr>
@@ -156,7 +156,7 @@
 </tbody>
 </table>
 
-<p class="right">Pelaihari, <?= format_indo(date('Y-m-d')) ?></p>
+<p class="right">Pelaihari, <?= format_indo($dtbarang_keluar['tanggal_barang_keluar']) ?></p>
 
 <table class="ttd no-border">
   <tr>

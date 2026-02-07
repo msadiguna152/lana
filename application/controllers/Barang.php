@@ -40,12 +40,9 @@ class Barang extends CI_Controller {
 		if($query->num_rows() == 0) {
 
 			$this->form_validation->set_rules('nama_barang','Nama barang','trim|required');
-			$this->form_validation->set_rules('kode_barang','Kode barang','trim|required');
-			$this->form_validation->set_rules('id_satuan','Satuan barang','trim|required');
-			// $this->form_validation->set_rules('harga_barang','Harga barang','trim|required');
+			$this->form_validation->set_rules('kode_barang','Kode barang','trim|required|integer');
+			$this->form_validation->set_rules('id_satuan','Satuan barang','trim|required|integer');
 			$this->form_validation->set_rules('stok_barang','Stok barang','trim|required|max_length[6]|integer');
-			// $this->form_validation->set_rules('deskripsi','Deskripsi barang','trim|required');
-
 			$this->form_validation->set_error_delimiters('- ', '<br>');
 
 			if($this->form_validation->run() == TRUE){

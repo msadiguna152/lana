@@ -27,6 +27,9 @@
                 <div class="card-header">
                   <div class="row">
                     <div class="col-lg-2 col-md-6 col-sm-12">
+                      <a onclick="history.back(-1)" name="reset"  class="btn btn-block btn-info">Kembali</a>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
                       <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Filter</a>
                     </div>
                     <div class="col-lg-2 col-md-6 col-sm-12">

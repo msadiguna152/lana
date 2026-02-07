@@ -38,7 +38,6 @@
         <th>Nama Barang</th>
         <th>Barang Keluar</th>
         <th>Satuan</th>
-        <th>Keterangan</th>
       </tr>
     </thead>
     <tbody style="text-align: left; vertical-align: top;">
@@ -53,7 +52,6 @@
         <td class="left"><?= $row->nama_barang; ?></td>
         <td><b><?= number_format($row->jumlah_keluar); ?></b></td>
         <td><?= $row->nama_satuan; ?></td>
-        <td class="left"><?= $row->keterangan_barang_keluar; ?></td>
       </tr>
       <?php $no++; endforeach;?>
     </tbody>

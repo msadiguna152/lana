@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                           <label for="id_bidang">Seksi</label>
-                          <select class="form-control select2bs4" name="id_bidang" data-placeholder="---Pilih Seksi---" required="">
+                          <select class="form-control select2bs4" name="id_bidang" id="id_bidang"  data-placeholder="---Pilih Seksi---" required="">
                             <option value="">---Pilih Seksi---</option>
                             <?php foreach ($bidang->result() as $dtbidang) : ?>
                               <option <?= $dtpegawai['id_bidang']==$dtbidang->id_bidang ?'selected':'';?> value="<?= $dtbidang->id_bidang;?>"><?= $dtbidang->nama_bidang;?></option>
@@ -69,7 +69,7 @@
 
                         <div class="form-group">
                           <label for="id_jabatan">Jabatan</label>
-                          <select class="form-control select2bs4" name="id_jabatan" data-placeholder="---Pilih Jabatan---" required="">
+                          <select class="form-control select2bs4" name="id_jabatan" id="id_jabatan"  data-placeholder="---Pilih Jabatan---" required="">
                             <option value="">---Pilih Jabatan---</option>
                             <?php foreach ($jabatan->result() as $dtjabatan) : ?>
                               <option <?= $dtpegawai['id_jabatan']==$dtjabatan->id_jabatan ?'selected':'';?> value="<?= $dtjabatan->id_jabatan;?>"><?= $dtjabatan->nama_jabatan;?></option>

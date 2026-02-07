@@ -4,20 +4,26 @@ class Mbarang_masuk extends CI_Model {
 
 	public function get($dari_tanggal,$sampai_tanggal)
 	{
-		if ($dari_tanggal!=NULL AND $sampai_tanggal!=NULL) {
-			$query = $this->db->select('')->from('barang_masuk')
-			->where('tanggal_barang_masuk>=',$dari_tanggal)
-			->where('tanggal_barang_masuk<=',$sampai_tanggal)
-			->order_by('id_barang_masuk','DESC')->get();
+		if (!empty($dari_tanggal) && !empty($sampai_tanggal)) {
+			$query = $this->db->select('*')
+			->from('barang_masuk')
+			->where('tanggal_barang_masuk >=', $dari_tanggal)
+			->where('tanggal_barang_masuk <=', $sampai_tanggal)
+			->order_by('id_barang_masuk', 'DESC')
+			->get();
 		} else {
-			$filter = explode("-",date("Y-m-d"));
-			$query = $this->db->select('*')->from('barang_masuk')
-			->where('MONTH(tanggal_barang_masuk)',$filter['1'])
-			->where('YEAR(tanggal_barang_masuk)',$filter['0'])
-			->order_by('id_barang_masuk','DESC')->get();
+			$tanggal_awal = date('Y-m-d', strtotime('-2 years'));
+			$tanggal_akhir = date('Y-m-d');
+			$query = $this->db->select('*')
+			->from('barang_masuk')
+			->where('tanggal_barang_masuk >=', $tanggal_awal)
+			->where('tanggal_barang_masuk <=', $tanggal_akhir)
+			->order_by('id_barang_masuk', 'DESC')
+			->get();
 		}
-		
+
 		return $query;
+
 	}
 
 	public function get_barang($id2)
