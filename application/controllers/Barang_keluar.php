@@ -7,7 +7,8 @@ class Barang_keluar extends CI_Controller {
 		$this->load->model([
 			'Mbarang_keluar',
 			'Mpegawai',
-			'Mbarang'
+			'Mbarang',
+			'Mpengaturanttd',
 		]);
 	}
 
@@ -56,6 +57,8 @@ class Barang_keluar extends CI_Controller {
 
 		if ($this->_isOperator()) {
 			$data['pegawai'] = $this->Mpegawai->get($this->session->userdata('id_pegawai'));
+		} else {
+			$data['pegawai2'] = $this->Mpegawai->get2($this->session->userdata('id_bidang'));
 		}
 
 		$this->_loadView('barang_keluar/tambah', $data);
@@ -71,7 +74,7 @@ class Barang_keluar extends CI_Controller {
 
 		$cek = $this->db->where([
 			'no_berita_acara'       => $this->input->post('no_berita_acara'),
-			'tanggal_barang_keluar'=> $this->input->post('tanggal_barang_keluar')
+			'tanggal_barang_keluar'	=> $this->input->post('tanggal_barang_keluar')
 		])->get('barang_keluar');
 
 		if ($cek->num_rows() > 0) {
@@ -145,6 +148,7 @@ class Barang_keluar extends CI_Controller {
 	public function cetak_permintaan($id){
 		$data = [
 			'dtbarang_keluar'        => $this->Mbarang_keluar->get_edit2($id),
+			'ttd'        			 => $this->Mpengaturanttd->get_edit(),
 			'rincian_barang_keluar'  => $this->Mbarang_keluar->get_rincian_barang_keluar2($id)
 		];
 		$this->load->view('barang_keluar/cetak_permintaan', $data);
@@ -190,10 +194,11 @@ class Barang_keluar extends CI_Controller {
 			$this->form_validation->set_rules('tanggal_barang_keluar','Tanggal','required');
 			$this->form_validation->set_rules('id_barang[]','Barang','required');
 			$this->form_validation->set_rules('stok_barang_keluar[]','Pemberian','required|integer');
+			$this->form_validation->set_rules('permintaan[]','Permintaan','required|integer');
 		} else {
-			$this->form_validation->set_rules('stok_barang_keluar[]','Pemberian','required|integer');
+			$this->form_validation->set_rules('no_berita_acara','No. Berita Acara','required');
+			$this->form_validation->set_rules('no_bukti','No. Bukti','required');
 		}
-
 		$this->form_validation->set_error_delimiters('- ', '<br>');
 	}
 

@@ -80,52 +80,52 @@
 
             <?php if ($this->session->userdata('level') === 'Operator') { ?>
 
-            <li class="nav-item ">
-              <a href="<?= base_url('Barang');?>" class="nav-link <?= ($menu == "Barang" ) ? "active" : "";?>">
-                <i class="nav-icon fas fa-book"></i>
-                <p>Data Barang</p>
-              </a>
-            </li>
+              <li class="nav-item ">
+                <a href="<?= base_url('Barang');?>" class="nav-link <?= ($menu == "Barang" ) ? "active" : "";?>">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>Data Barang</p>
+                </a>
+              </li>
 
-            <li class="nav-item <?= ($menu == "Barang Masuk" OR $menu == "Barang Keluar") ? "menu-open" : "";?>">
-              <a href="#" class="nav-link <?= ($menu == "Barang Masuk" OR $menu == "Barang Keluar") ? "active" : "";?>">
-                <i class="nav-icon fas fa-edit"></i>
-                <p>Transaksi Barang<i class="fas fa-angle-left right"></i></p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?= base_url('Barang_masuk');?>" class="nav-link <?= ($menu == "Barang Masuk") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Barang Masuk</p>
-                  </a>
-                </li>
+              <li class="nav-item <?= ($menu == "Barang Masuk" OR $menu == "Barang Keluar") ? "menu-open" : "";?>">
+                <a href="#" class="nav-link <?= ($menu == "Barang Masuk" OR $menu == "Barang Keluar") ? "active" : "";?>">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>Transaksi Barang<i class="fas fa-angle-left right"></i></p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="<?= base_url('Barang_masuk');?>" class="nav-link <?= ($menu == "Barang Masuk") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Barang Masuk</p>
+                    </a>
+                  </li>
 
-                <li class="nav-item">
-                  <a href="<?= base_url('Barang_keluar');?>" class="nav-link <?= ($menu == "Barang Keluar") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Barang Keluar</p>
-                  </a>
-                </li>
+                  <li class="nav-item">
+                    <a href="<?= base_url('Barang_keluar');?>" class="nav-link <?= ($menu == "Barang Keluar") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Barang Keluar</p>
+                    </a>
+                  </li>
 
-              </ul>
-            </li>
-            
+                </ul>
+              </li>
+
             <?php } else { ?>
               <li class="nav-item ">
-              <a href="<?= base_url('Barang_keluar');?>" class="nav-link <?= ($menu == "Permintaan Barang") ? "active" : "";?>">
-                <i class="nav-icon fas fa-list"></i>
-                <p>Permintaan</p>
-              </a>
-            </li>
+                <a href="<?= base_url('Barang_keluar');?>" class="nav-link <?= ($menu == "Permintaan Barang") ? "active" : "";?>">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>Permintaan</p>
+                </a>
+              </li>
             <?php }?>
 
             <?php if ($this->session->userdata('level') === 'Operator') { ?>
-            <li class="nav-item ">
-              <a href="<?= base_url();?>Pegawai" class="nav-link <?= ($menu == "Pegawai") ? "active" : "";?>">
-                <i class="nav-icon fas fa-users"></i>
-                <p>Data Pegawai</p>
-              </a>
-            </li>
+              <li class="nav-item ">
+                <a href="<?= base_url();?>Pegawai" class="nav-link <?= ($menu == "Pegawai") ? "active" : "";?>">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>Data Pegawai</p>
+                </a>
+              </li>
             <?php } else { ?>
               <li class="nav-item ">
                 <a href="<?= base_url();?>Pegawai" class="nav-link <?= ($menu == "Biodata") ? "active" : "";?>">
@@ -136,65 +136,72 @@
             <?php };?>
 
             <?php if ($this->session->userdata('level') === 'Operator') { ?>
-            <li class="nav-item <?= ($menu == "Pengguna" OR $menu == "Satuan" OR $menu == "Jabatan" OR $menu == "Pangkat" OR $menu == "Seksi") ? "menu-open" : "";?>">
-              <a href="#" class="nav-link <?= ($menu == "Pengguna" OR $menu == "Satuan" OR $menu == "Jabatan" OR $menu == "Pangkat" OR $menu == "Seksi") ? "active" : "";?>">
-                <i class="nav-icon fas fa-database"></i>
-                <p>
-                  Kelola Data
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="<?= base_url();?>Jabatan" class="nav-link <?= ($menu == "Jabatan") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Jabatan</p>
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="<?= base_url();?>Pangkat" class="nav-link <?= ($menu == "Pangkat") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Pangkat / Golongan</p>
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="<?= base_url();?>Bidang" class="nav-link <?= ($menu == "Seksi") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Seksi</p>
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="<?= base_url();?>Satuan" class="nav-link <?= ($menu == "Satuan") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Satuan</p>
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="<?= base_url();?>Pengguna" class="nav-link <?= ($menu == "Pengguna") ? "active" : "";?>">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Pengguna</p>
-                  </a>
-                </li>
-
-              </ul>
-
-              
-            </li>
-            <?php };?>
-
-            <li class="nav-item ">
-                <a href="<?= base_url('Login/proses_logout');?>" class="nav-link tombol-logout">
-                  <i class="nav-icon fas fa-power-off"></i>
+              <li class="nav-item <?= ($menu == "Pengguna" OR $menu == "Satuan" OR $menu == "Jabatan" OR $menu == "Pangkat" OR $menu == "Seksi") ? "menu-open" : "";?>">
+                <a href="#" class="nav-link <?= ($menu == "Pengguna" OR $menu == "Satuan" OR $menu == "Jabatan" OR $menu == "Pangkat" OR $menu == "Seksi") ? "active" : "";?>">
+                  <i class="nav-icon fas fa-database"></i>
                   <p>
-                    Logout
+                    Kelola Data
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+
+                  <li class="nav-item">
+                    <a href="<?= base_url();?>Jabatan" class="nav-link <?= ($menu == "Jabatan") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Jabatan</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="<?= base_url();?>Pangkat" class="nav-link <?= ($menu == "Pangkat") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pangkat / Golongan</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="<?= base_url();?>Bidang" class="nav-link <?= ($menu == "Seksi") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Seksi</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="<?= base_url();?>Satuan" class="nav-link <?= ($menu == "Satuan") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Satuan</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="<?= base_url();?>Pengguna" class="nav-link <?= ($menu == "Pengguna") ? "active" : "";?>">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pengguna</p>
+                    </a>
+                  </li>
+
+                </ul>
+
+              </li>
+              <li class="nav-item ">
+                <a href="<?= base_url();?>Pengaturanttd" class="nav-link <?= ($menu == "Pengaturan TTD") ? "active" : "";?>">
+                  <i class="nav-icon fas fa-cogs" aria-hidden="true"></i>
+                  <p>
+                    Pengaturan TTD
                   </p>
                 </a>
               </li>
+            <?php };?>
+
+            <li class="nav-item ">
+              <a href="<?= base_url('Login/proses_logout');?>" class="nav-link tombol-logout">
+                <i class="nav-icon fas fa-power-off"></i>
+                <p>
+                  Logout
+                </p>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>

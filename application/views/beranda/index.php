@@ -45,7 +45,7 @@
                           <th style="text-align: center; vertical-align: middle;">Tanggal Pengajuan</th>
                           <th style="text-align: center; vertical-align: middle;">Status</th>
                           <th style="text-align: center; vertical-align: middle;">Keterangan</th>
-                          <th style="text-align: center; vertical-align: middle;">Opsi</th>
+                          <th style="text-align: center; vertical-align: middle;" <?= ($levelUser === 'Pengusul') ? 'hidden' : ''; ?>>Opsi</th>
                         </tr>
                       </thead>
                       <tbody style="text-align: left; vertical-align: top;">
@@ -68,7 +68,7 @@
                             <?php }; ?>
                           </td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->keterangan_barang_keluar;?></td>
-                          <td style="text-align: center; vertical-align: middle;">
+                          <td style="text-align: center; vertical-align: middle;" <?= ($levelUser === 'Pengusul') ? 'hidden' : ''; ?>>
                             <a class="btn btn-primary btn-sm" href="<?= site_url('Barang_keluar/update');?>/<?= $data->id_barang_keluar;?>">
                               <i class="bi bi-check-circle"> </i> Konfirmasi
                             </a>

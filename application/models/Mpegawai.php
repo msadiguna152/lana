@@ -29,6 +29,21 @@ class Mpegawai extends CI_Model {
 		return $query = $this->db->get();
 	}
 
+	public function get2()
+	{
+		$this->db->select('*');
+		$this->db->from('pegawai');
+		$this->db->join('pangkat','pangkat.id_pangkat=pegawai.id_pangkat','LEFT');
+		$this->db->join('bidang','bidang.id_bidang=pegawai.id_bidang','LEFT');
+		$this->db->join('jabatan','jabatan.id_jabatan=pegawai.id_jabatan');
+		if ($this->session->userdata('level') !== 'Operator') {
+			$this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
+		}
+		$this->db->order_by('pegawai.id_pegawai','DESC');
+		
+		return $query = $this->db->get();
+	}
+
 	public function get_edit($id)
 	{
 		return $this->db->query("SELECT * from pegawai where id_pegawai='$id'")->row_array();

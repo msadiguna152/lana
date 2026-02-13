@@ -99,6 +99,7 @@
                                   <td id="nomor" style="text-align: center; vertical-align: left;"><?= $no;?></td>
                                   <td style="text-align: center; vertical-align: left;width: 400px;">
                                     <?= $data2->nama_barang;?> (<?= $data2->nama_satuan;?>)
+                                    <input type="text" name="id_barang" value="<?= $data2->id_barang;?>">
                                   </td>
                                   <td style="text-align: center; vertical-align: left;width: 200px;">
                                     <?= $data2->stok_barang;?> (<?= $data2->nama_satuan;?>)

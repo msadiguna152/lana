@@ -32,7 +32,7 @@ class AuthHook {
 
         // Role / Level Access Map
         $access = [
-            'Operator' => ['Login', 'Beranda', 'Barang', 'Pegawai', 'Jabatan', 'Pengguna', 'Satuan', 'Barang_masuk', 'Barang_keluar', 'Pangkat', 'Bidang'],
+            'Operator' => ['Login', 'Beranda', 'Barang', 'Pegawai', 'Jabatan', 'Pengguna', 'Satuan', 'Barang_masuk', 'Barang_keluar', 'Pangkat', 'Bidang', 'Pengaturanttd'],
             'Pengusul' => ['Login', 'Beranda', 'Pegawai', 'Pengguna', 'Barang_keluar'],
             'Penyetuju' => ['Login', 'Beranda', 'Pegawai', 'Barang_keluar'],
         ];

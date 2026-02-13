@@ -16,15 +16,15 @@ class Mbarang_keluar extends CI_Model {
     public function get($dari = NULL, $sampai = NULL)
     {
         $this->db->select('*')
-            ->from('barang_keluar')
-            ->join('pegawai', 'pegawai.id_pegawai = barang_keluar.id_pegawai', 'left')
-            ->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan', 'left');
+        ->from('barang_keluar')
+        ->join('pegawai', 'pegawai.id_pegawai = barang_keluar.id_pegawai', 'left')
+        ->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan', 'left');
 
         $this->_filterLevel();
 
         if ($dari && $sampai) {
             $this->db->where('tanggal_barang_keluar >=', $dari)
-                     ->where('tanggal_barang_keluar <=', $sampai);
+            ->where('tanggal_barang_keluar <=', $sampai);
         }
 
         $this->db->order_by('id_barang_keluar', 'DESC');
@@ -35,21 +35,21 @@ class Mbarang_keluar extends CI_Model {
     public function get_edit($id)
     {
         return $this->db->select('*')
-            ->from('barang_keluar')
-            ->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai')
-            ->where('id_barang_keluar',$id)
-            ->get()->row_array();
+        ->from('barang_keluar')
+        ->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai')
+        ->where('id_barang_keluar',$id)
+        ->get()->row_array();
     }
 
     public function get_rincian_barang_keluar($id)
     {
         return $this->db->select('*')
-            ->from('rincian_barang_keluar rbk')
-            ->join('barang b','b.id_barang=rbk.id_barang')
-            ->join('satuan s','s.id_satuan=b.id_satuan','left')
-            ->where('rbk.id_barang_keluar',$id)
-            ->order_by('rbk.id_rincian_barang_keluar','DESC')
-            ->get();
+        ->from('rincian_barang_keluar rbk')
+        ->join('barang b','b.id_barang=rbk.id_barang')
+        ->join('satuan s','s.id_satuan=b.id_satuan','left')
+        ->where('rbk.id_barang_keluar',$id)
+        ->order_by('rbk.id_rincian_barang_keluar','DESC')
+        ->get();
     }
 
     /* ================= UPDATE ================= */
@@ -59,12 +59,14 @@ class Mbarang_keluar extends CI_Model {
         $data = $this->_dataBarangKeluar();
 
         $this->db->where('id_barang_keluar',$id)
-                 ->update('barang_keluar',$data);
+        ->update('barang_keluar',$data);
+        $this->db->delete('rincian_barang_keluar',['id_barang_keluar'=>$id]);
+        $this->_insertRincian($id);
 
-        if ($this->session->userdata('level') !== 'Penyetuju') {
-            $this->db->delete('rincian_barang_keluar',['id_barang_keluar'=>$id]);
-            $this->_insertRincian($id);
-        }
+        // if ($this->session->userdata('level') !== 'Penyetuju') {
+        //     $this->db->delete('rincian_barang_keluar',['id_barang_keluar'=>$id]);
+        //     $this->_insertRincian($id);
+        // }
     }
 
     /* ================= DELETE ================= */
@@ -88,7 +90,7 @@ class Mbarang_keluar extends CI_Model {
             rbk.rincian,
             bk.keterangan_barang_keluar,
             p.nama_pegawai
-        ')
+            ')
         ->from('rincian_barang_keluar rbk')
         ->join('barang_keluar bk','bk.id_barang_keluar=rbk.id_barang_keluar')
         ->join('pegawai p','p.id_pegawai=bk.id_pegawai','left')
@@ -108,23 +110,23 @@ class Mbarang_keluar extends CI_Model {
     public function get_edit2($id)
     {
         return $this->db->select('*')
-            ->from('barang_keluar')
-            ->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai')
-            ->join('jabatan','pegawai.id_jabatan=jabatan.id_jabatan')
+        ->from('barang_keluar')
+        ->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai')
+        ->join('jabatan','pegawai.id_jabatan=jabatan.id_jabatan')
 
-            ->where('id_barang_keluar',$id)
-            ->get()->row_array();
+        ->where('id_barang_keluar',$id)
+        ->get()->row_array();
     }
 
     public function get_rincian_barang_keluar2($id)
     {
         return $this->db->select('*')
-            ->from('rincian_barang_keluar rbk')
-            ->join('barang b','b.id_barang=rbk.id_barang')
-            ->join('satuan s','s.id_satuan=b.id_satuan','left')
-            ->where('rbk.id_barang_keluar',$id)
-            ->order_by('rbk.id_rincian_barang_keluar','DESC')
-            ->get();
+        ->from('rincian_barang_keluar rbk')
+        ->join('barang b','b.id_barang=rbk.id_barang')
+        ->join('satuan s','s.id_satuan=b.id_satuan','left')
+        ->where('rbk.id_barang_keluar',$id)
+        ->order_by('rbk.id_rincian_barang_keluar','DESC')
+        ->get();
     }
 
     /* ================= KODE ================= */
@@ -155,7 +157,9 @@ class Mbarang_keluar extends CI_Model {
             $data['tanggal_barang_keluar'] = $this->input->post('tanggal_barang_keluar');
             $data['status_barang_keluar'] = $this->input->post('status_barang_keluar');
         } elseif ($this->session->userdata('level') === 'Pengusul') {
-            $data['id_pegawai'] = $this->session->userdata('id_pegawai');
+            $data['id_pegawai'] = $this->input->post('id_pegawai');
+        } else {
+            $data['status_barang_keluar'] = $this->input->post('status_barang_keluar');
         }
 
         return $data;
@@ -179,7 +183,7 @@ class Mbarang_keluar extends CI_Model {
     private function _filterLevel()
     {
         if ($this->session->userdata('level') === 'Pengusul') {
-            $this->db->where('barang_keluar.id_pegawai',$this->session->userdata('id_pegawai'));
+            $this->db->where('pegawai.id_bidang',$this->session->userdata('id_bidang'));
         } elseif ($this->session->userdata('level') === 'Penyetuju') {
             $this->db->where('pegawai.id_bidang',$this->session->userdata('id_bidang'));
         }
@@ -190,10 +194,10 @@ class Mbarang_keluar extends CI_Model {
         $tahun = date('Y');
 
         $this->db->select('SUBSTRING(no_berita_acara,1,'.$digit.') as kode',false)
-            ->from('barang_keluar')
-            ->where('YEAR(tanggal_pengajuan)',$tahun)
-            ->order_by('no_berita_acara','DESC')
-            ->limit(1);
+        ->from('barang_keluar')
+        ->where('YEAR(tanggal_pengajuan)',$tahun)
+        ->order_by('no_berita_acara','DESC')
+        ->limit(1);
 
         $row = $this->db->get()->row();
         $no = $row ? intval($row->kode) + 1 : 1;

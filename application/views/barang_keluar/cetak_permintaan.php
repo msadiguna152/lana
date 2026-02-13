@@ -112,9 +112,17 @@
       <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>
       <?= $dtbarang_keluar['jenis_register']; ?>. <?= $dtbarang_keluar['nip_no_reg']; ?>
     </td>
+
+    <?php
+    $this->db->select('*');
+    $this->db->from('pegawai');
+    $this->db->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan');
+    $this->db->like('LOWER(jabatan.nama_jabatan)', 'kepala');
+    $ttd = $this->db->get()->row();;
+    ?>
     <td>
       Mengetahui,<br>
-      <?= $dtbarang_keluar['nama_jabatan']; ?><br><br><br>
+      <?= var_dump($ttd); ?><br><br><br>
       <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>
       <?= $dtbarang_keluar['jenis_register']; ?>. <?= $dtbarang_keluar['nip_no_reg']; ?>
     </td>
@@ -162,14 +170,13 @@
   <tr>
     <td>
       Diserahkan Oleh,<br>
-      Analis Pengelola APBN Pertama<br>
-      <?= $dtbarang_keluar['nama_jabatan']; ?><br><br><br>
-      <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>
-      <?= $dtbarang_keluar['jenis_register']; ?>. <?= $dtbarang_keluar['nip_no_reg']; ?>
+      <?= $ttd['jabatan_diserahkan_b1']; ?><br><?= $ttd['jabatan_diserahkan_b2']; ?><br><br><br><br>
+      <u><?= $ttd['nama_diserahkan']; ?></u><br>
+      NIP. <?= $ttd['nip_diserahkan']; ?>
     </td>
     <td>
       Diterima Oleh,<br>
-      <?= $dtbarang_keluar['nama_jabatan']; ?><br><br><br>
+      <?= $dtbarang_keluar['nama_jabatan']; ?><br><br><br><br><br>
       <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>
       <?= $dtbarang_keluar['jenis_register']; ?>. <?= $dtbarang_keluar['nip_no_reg']; ?>
     </td>
@@ -178,9 +185,9 @@
 
 <p class="center">
   Mengetahui,<br>
-  <?= $dtbarang_keluar['nama_jabatan']; ?><br><br><br>
-  <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>
-  <?= $dtbarang_keluar['jenis_register']; ?>. <?= $dtbarang_keluar['nip_no_reg']; ?>
+  <?= $ttd['jabatan_mengetahui_b1']; ?><br><?= $ttd['jabatan_mengetahui_b2']; ?><br><br><br><br>
+  <u><?= $ttd['nama_mengetahui']; ?></u><br>
+  NIP. <?= $ttd['nip_mengetahui']; ?>
 </p>
 
 </body>
