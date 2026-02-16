@@ -58,7 +58,7 @@ class Barang_keluar extends CI_Controller {
 		if ($this->_isOperator()) {
 			$data['pegawai'] = $this->Mpegawai->get($this->session->userdata('id_pegawai'));
 		} else {
-			$data['pegawai2'] = $this->Mpegawai->get2($this->session->userdata('id_bidang'));
+			$data['pegawai'] = $this->Mpegawai->get2($this->session->userdata('id_bidang'));
 		}
 
 		$this->_loadView('barang_keluar/tambah', $data);
@@ -98,7 +98,9 @@ class Barang_keluar extends CI_Controller {
 		];
 
 		if ($this->_isOperator()) {
-			$data['pegawai'] = $this->Mpegawai->get();
+			$data['pegawai'] = $this->Mpegawai->get($this->session->userdata('id_pegawai'));
+		} else {
+			$data['pegawai'] = $this->Mpegawai->get2($this->session->userdata('id_bidang'));
 		}
 
 		$this->_loadView('barang_keluar/ubah', $data);

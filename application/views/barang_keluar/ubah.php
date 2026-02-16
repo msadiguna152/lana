@@ -34,16 +34,12 @@
 
                         <div class="form-group">
                           <label for="id_pegawai">Pemohon</label>
-                          <?php if ($this->session->userdata('level') === 'Operator') { ?>
-                            <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
-                              <option value="" selected disabled>---Pilih Pemohon---</option>
-                              <?php foreach ($pegawai->result() as $dtpegawai) : ?>
-                                <option <?= $dtbarang_keluar['id_pegawai']==$dtpegawai->id_pegawai ?'selected':'';?> value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
-                              <?php endforeach;?>
-                            </select>
-                          <?php } else { ?>
-                            <input type="text" class="form-control" value="<?= $dtbarang_keluar['nama_pegawai']; ?>" disabled>
-                          <?php };?>
+                          <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
+                            <option value="" selected disabled>---Pilih Pemohon---</option>
+                            <?php foreach ($pegawai->result() as $dtpegawai) : ?>
+                              <option <?= $dtbarang_keluar['id_pegawai']==$dtpegawai->id_pegawai ?'selected':'';?> value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
+                            <?php endforeach;?>
+                          </select>
                         </div>
 
                         <div class="form-group">
@@ -55,9 +51,14 @@
 
                       <div class="col-xl-6 col-md-6 col-sm-12">
 
-                        <div class="form-group" <?= ($levelUser !== 'Operator') ? 'hidden' : ''; ?>>
+                        <!-- <div class="form-group" <?= ($levelUser !== 'Operator') ? 'hidden' : ''; ?>>
                           <label for="tanggal_barang_keluar">Tanggal Keluar</label>
                           <input type="date" class="form-control" name="tanggal_barang_keluar" value="<?= $dtbarang_keluar['tanggal_barang_keluar']; ?>" placeholder="Masukan Tanggal" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
+                        </div> -->
+
+                        <div class="form-group" <?= ($levelUser === 'Pengusul') ? 'hidden' : ''; ?>>
+                          <label for="tanggal_barang_keluar">Tanggal Keluar</label>
+                          <input type="date" class="form-control" name="tanggal_barang_keluar" value="<?= $dtbarang_keluar['tanggal_barang_keluar']; ?>" placeholder="Masukan Tanggal" <?= ($levelUser === 'Pengusul') ? '' : 'required'; ?>>
                         </div>
 
                         <div class="form-group" <?= ($levelUser === 'Pengusul') ? 'hidden' : ''; ?>>
@@ -86,9 +87,9 @@
                               <tr>
                                 <th style="text-align: center; vertical-align: middle;">No</th>
                                 <th style="text-align: center; vertical-align: middle;">Nama Barang</th>
-                                <th style="text-align: center; vertical-align: middle;" <?= ($levelUser != 'Pengusul') ? '' : 'hidden'; ?>>Tersedia</th>
+                                <th style="text-align: center; vertical-align: middle;">Tersedia</th>
                                 <th style="text-align: center; vertical-align: middle;">Permintaan</th>
-                                <th style="text-align: center; vertical-align: middle;">Pemberian</th>
+                                <th style="text-align: center; vertical-align: middle;" <?= ($levelUser != 'Pengusul') ? '' : 'hidden'; ?>>Pemberian</th>
                                 <th style="text-align: center; vertical-align: middle;">Rincian</th>
                               </tr>
                             </thead>
@@ -99,7 +100,7 @@
                                   <td id="nomor" style="text-align: center; vertical-align: left;"><?= $no;?></td>
                                   <td style="text-align: center; vertical-align: left;width: 400px;">
                                     <?= $data2->nama_barang;?> (<?= $data2->nama_satuan;?>)
-                                    <input type="text" name="id_barang" value="<?= $data2->id_barang;?>">
+                                    <input type="text" hidden name="id_barang[]" value="<?= $data2->id_barang;?>">
                                   </td>
                                   <td style="text-align: center; vertical-align: left;width: 200px;">
                                     <?= $data2->stok_barang;?> (<?= $data2->nama_satuan;?>)
@@ -110,13 +111,12 @@
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
-                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang+$data2->stok_barang_keluar;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" required>
+                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang+$data2->stok_barang_keluar;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Maksimal <?= $data2->stok_barang+$data2->stok_barang_keluar;?>" required>
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">
                                     <?= $data2->rincian;?>
                                   </td>
-
                                 </tr>
                               <?php } elseif ($levelUser === 'Pengusul') { ?>
                                 <tr>
@@ -134,10 +134,6 @@
 
                                   <td style="text-align: center; vertical-align: left;width: 200px;">
                                     <input type="number" class="form-control" id="permintaan" min="0" max="" value="<?= $data2->permintaan;?>" name="permintaan[]" maxlength="6" placeholder="Masukan Permintaan" required>
-                                  </td>
-
-                                  <td style="text-align: center; vertical-align: left;" <?= ($levelUser !== 'Operator') ? 'hidden' : ''; ?>>
-                                    <input type="number" class="form-control" id="stok_barang_keluar" min="0" max="<?= $data2->stok_barang+$data2->stok_barang_keluar;?>" value="<?= $data2->stok_barang_keluar;?>" name="stok_barang_keluar[]" maxlength="6" placeholder="Masukan Pemberian / Stok Keluar" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">

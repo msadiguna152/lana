@@ -58,9 +58,10 @@ class Mbarang_keluar extends CI_Model {
         $id = $this->input->post('id_barang_keluar');
         $data = $this->_dataBarangKeluar();
 
-        $this->db->where('id_barang_keluar',$id)
-        ->update('barang_keluar',$data);
+        $this->db->where('id_barang_keluar',$id)->update('barang_keluar',$data);
+
         $this->db->delete('rincian_barang_keluar',['id_barang_keluar'=>$id]);
+        
         $this->_insertRincian($id);
 
         // if ($this->session->userdata('level') !== 'Penyetuju') {
@@ -159,6 +160,8 @@ class Mbarang_keluar extends CI_Model {
         } elseif ($this->session->userdata('level') === 'Pengusul') {
             $data['id_pegawai'] = $this->input->post('id_pegawai');
         } else {
+            $data['id_pegawai'] = $this->input->post('id_pegawai');
+            $data['tanggal_barang_keluar'] = $this->input->post('tanggal_barang_keluar');
             $data['status_barang_keluar'] = $this->input->post('status_barang_keluar');
         }
 

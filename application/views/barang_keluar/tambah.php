@@ -33,24 +33,15 @@
 
                         <div class="form-group">
                           <label for="id_pegawai">Pemohon</label>
-                          <?php if ($this->session->userdata('level') === 'Operator') { ?>
-                            <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
-                              <option value="" selected disabled>---Pilih Pemohon---</option>
-                              <?php foreach ($pegawai->result() as $dtpegawai) : ?>
-                                <option value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
-                              <?php endforeach;?>
-                            </select>
-                          <?php } else { ?>
-                            <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
-                              <option value="" selected disabled>---Pilih Pemohon---</option>
-                              <?php foreach ($pegawai2->result() as $dtpegawai) : ?>
-                                <option value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
-                              <?php endforeach;?>
-                            </select>
-                          <?php }?>
+                          <select class="form-control select2bs4" id="id_pegawai" name="id_pegawai" data-placeholder="---Pilih Pemohon---" <?= ($levelUser !== 'Operator') ? '' : 'required'; ?>>
+                            <option value="" selected disabled>---Pilih Pemohon---</option>
+                            <?php foreach ($pegawai->result() as $dtpegawai) : ?>
+                              <option value="<?= $dtpegawai->id_pegawai?>"><?= $dtpegawai->nama_pegawai?></option>
+                            <?php endforeach;?>
+                          </select>
                         </div>
 
-                        <div class="form-group" <?= ($levelUser === 'Operator') ? '' : 'hidden'; ?>>
+                        <div class="form-group">
                           <label for="asal_permintaan">Asal Permintaan</label>
                           <input type="text" readonly class="form-control" id="asal_permintaan" name="asal_permintaan"placeholder="Masukan Asal Permintaan">
                         </div>
