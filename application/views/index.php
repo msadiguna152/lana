@@ -14,38 +14,145 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url();?>assets/dist/css/adminlte.min.css">
 
-  <style type="text/css">
-    .ignielPelangi {
-/*      background: linear-gradient(45deg, #edfafd, #aed9da, #3ddad7, #2a93d5, #135589);*/
-      /*background: linear-gradient(135deg, #FFFFFF,#D4AF37,#0B3C5D,#8B5A2B,#2E8B57,#5DADE2);*/
-      background: linear-gradient(
-  135deg,
-  #0B3C5D,
-  #5DADE2,
-  #2E8B57,
-  #D4AF37
-);
-      background-size: 500% 500%;
-      -webkit-animation: ignielGradient 12s ease infinite;
-      -moz-animation: ignielGradient 12s ease infinite;
-      animation: ignielGradient 12s ease infinite;
-    }
-    @-webkit-keyframes ignielGradient {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    @-moz-keyframes ignielGradient {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    @keyframes ignielGradient {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-  </style>
+  <style>
+    /* ======================================================
+   BACKGROUND GRADIENT ANIMATED
+====================================================== */
+
+.ignielPelangi {
+  background: linear-gradient(
+    135deg,
+    #0B3C5D,
+    #5DADE2,
+    #2E8B57,
+    #D4AF37
+  );
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+/* ======================================================
+   CARD GLASS LOGIN
+====================================================== */
+
+.login-box .card {
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(30px);}
+  to { opacity:1; transform: translateY(0);}
+}
+
+
+
+/* ======================================================
+   LOGO GLOW
+====================================================== */
+
+.login-box img {
+  transition: 0.4s ease;
+}
+
+.login-box img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 20px rgba(13,110,253,0.6));
+}
+
+
+
+/* ======================================================
+   INPUT MODERN
+====================================================== */
+
+.form-control {
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #17a2b8;
+  box-shadow: 0 0 15px rgba(23,162,184,0.4);
+}
+
+
+
+/* ======================================================
+   LOGIN BUTTON PREMIUM
+====================================================== */
+
+.btn-outline-info {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(23,162,184,0.7);
+  transform: translateY(-3px);
+}
+
+/* Shine effect */
+.btn-outline-info::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.1),
+    rgba(255,255,255,0.5),
+    rgba(255,255,255,0.1)
+  );
+  transform: skewX(-20deg);
+  animation: shineMove 3s infinite linear;
+}
+
+@keyframes shineMove {
+  100% { left: 125%; }
+}
+
+
+
+/* ======================================================
+   TITLE GLOW
+====================================================== */
+
+.text-info {
+  text-shadow: 0 0 8px rgba(23,162,184,0.6);
+}
+
+.login-title {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3s steps(30,end);
+}
+
+@keyframes typing {
+  from { width:0 }
+  to { width:100% }
+}
+
+
+</style>
 </head>
 <body class="hold-transition login-page ignielPelangi">
   <div class="login-box">
@@ -53,7 +160,7 @@
     <div class="card bg-white shadow">
       <div class="card-header text-center">
         <img src="<?= base_url('assets/logo.png')?>" class="img img-fluid m-3" style="height: 200px;"><br>
-        <a class="h5 text-info"><b>SIP ATK </b></a><br>
+        <a class="h5 text-info login-title"><b>SIP ATK </b></a><br>
         <a class="text text-dark"><b>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</b></a>
       </div>
       <div class="card-body">

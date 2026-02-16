@@ -11,8 +11,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-info navbar-running">
-  <span>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</span>
-</a>
+            <span>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</span>
+          </a>
         </li>
       </ul>
 
