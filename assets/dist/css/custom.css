@@ -248,6 +248,56 @@
 }
 
 /* ==========================================================
+   BUTTON GLOSS / SHINE EFFECT
+========================================================== */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Hover naik sedikit */
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Efek klik */
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* Shine overlay */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.5) 50%,
+    rgba(255,255,255,0.1) 100%
+  );
+  transform: skewX(-20deg);
+}
+
+/* Animasi shine saat hover */
+.btn:hover::before {
+  animation: shineMove 0.8s ease forwards;
+}
+
+@keyframes shineMove {
+  100% {
+    left: 125%;
+  }
+}
+
+
+/* ==========================================================
    WHITE GLOSS EFFECT
 ========================================================== */
 
