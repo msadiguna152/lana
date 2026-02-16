@@ -56,4 +56,16 @@ class Beranda extends CI_Controller {
 			redirect('Beranda/update');
 		}
 	}
+
+	public function get_dashboard_data()
+	{
+		$data = [
+			'total_barang'  => $this->db->count_all('barang'),
+			'barang_masuk'  => $this->db->count_all('rincian_barang_masuk'),
+			'barang_keluar' => $this->db->count_all('rincian_barang_keluar'),
+			'stok_menipis'  => $this->db->where('stok_barang <=', 5)->count_all_results('barang')
+		];
+
+		echo json_encode($data);
+	}
 }

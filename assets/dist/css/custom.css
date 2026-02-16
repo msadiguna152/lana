@@ -1,0 +1,293 @@
+/* ==========================================================
+   GLOBAL KEYFRAMES
+========================================================== */
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(25px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes fadeRow {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseIcon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+  100% { left: 100%; }
+}
+
+@keyframes runText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes fadePage {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shakeBell {
+  0%,100% { transform: rotate(0); }
+  10% { transform: rotate(10deg); }
+  20% { transform: rotate(-10deg); }
+  30% { transform: rotate(5deg); }
+  40% { transform: rotate(-5deg); }
+}
+
+
+
+/* ==========================================================
+   HERO DASHBOARD
+========================================================== */
+
+.hero-dashboard {
+  background: linear-gradient(-45deg,#007bff,#00c6ff,#17a2b8,#0056b3);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite, fadeUp 1s ease;
+  color: #fff;
+  border-radius: 15px;
+  padding: 40px;
+}
+
+
+
+/* ==========================================================
+   SMALL BOX MODERN (AMAN)
+========================================================== */
+
+.smallbox-modern {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.smallbox-modern.animate {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.smallbox-modern:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.smallbox-modern h3 {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.icon-animate i {
+  animation: pulseIcon 2s infinite;
+}
+
+/* Variasi Gradient */
+.gradient-info {
+  background: linear-gradient(-45deg,#007bff,#00c6ff,#17a2b8,#0056b3);
+  background-size:300% 300%;
+  animation: gradientMove 8s ease infinite;
+}
+
+.gradient-success {
+  background: linear-gradient(-45deg,#28a745,#20c997,#198754,#0f5132);
+  background-size:300% 300%;
+  animation: gradientMove 8s ease infinite;
+}
+
+.gradient-danger {
+  background: linear-gradient(-45deg,#dc3545,#ff6b6b,#c82333,#7a0f17);
+  background-size:300% 300%;
+  animation: gradientMove 8s ease infinite;
+}
+
+.gradient-warning {
+  background: linear-gradient(-45deg,#ffc107,#ffb703,#fd7e14,#ff8800);
+  background-size:300% 300%;
+  animation: gradientMove 8s ease infinite;
+}
+
+
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.table tbody tr {
+  animation: fadeRow 0.4s ease;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f4f6f9 !important;
+  transition: 0.3s;
+}
+
+
+
+/* ==========================================================
+   CARD (TIDAK GLOBAL)
+========================================================== */
+
+.card-animate {
+  animation: fadeUp 0.6s ease;
+}
+
+.card-header-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header-shimmer::after {
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.4),transparent);
+  animation: shimmer 3s infinite;
+}
+
+
+
+/* ==========================================================
+   NAVBAR
+========================================================== */
+
+.main-header {
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.9) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.navbar-running {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 400px;
+}
+
+.navbar-running span {
+  display:inline-block;
+  padding-left:100%;
+  animation: runText 15s linear infinite;
+  font-weight:600;
+}
+
+.fa-bell {
+  animation: shakeBell 3s infinite;
+}
+
+
+
+/* ==========================================================
+   CONTENT PAGE ANIMATION
+========================================================== */
+
+.content-wrapper {
+  animation: fadePage 0.4s ease;
+}
+
+
+
+/* ==========================================================
+   PROFILE
+========================================================== */
+
+.profile-user-img {
+  width:140px;
+  border:4px solid #17a2b8;
+  padding:5px;
+  transition:.4s;
+}
+
+.profile-user-img:hover {
+  transform:scale(1.05);
+  box-shadow:0 0 25px rgba(23,162,184,.6);
+}
+
+
+
+/* ==========================================================
+   FORM & BUTTON
+========================================================== */
+
+.form-control:focus {
+  box-shadow:0 0 10px rgba(23,162,184,.4);
+  border-color:#17a2b8;
+}
+
+.btn-modern {
+  border-radius:8px;
+  transition:all .25s ease;
+}
+
+.btn-modern:hover {
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+/* ==========================================================
+   WHITE GLOSS EFFECT
+========================================================== */
+
+/* Teks putih mengkilap */
+.text-gloss {
+  color: #ffffff;
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.8),
+    0 0 12px rgba(255,255,255,0.4);
+}
+
+/* Icon putih mengkilap */
+.icon-gloss {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.9),
+    0 0 18px rgba(255,255,255,0.5);
+  transition: 0.3s ease;
+}
+
+/* Shine animation halus */
+.icon-gloss.animate-gloss {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow:
+      0 0 6px rgba(255,255,255,0.7),
+      0 0 14px rgba(255,255,255,0.4);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(255,255,255,1),
+      0 0 25px rgba(255,255,255,0.8);
+  }
+  100% {
+    text-shadow:
+      0 0 6px rgba(255,255,255,0.7),
+      0 0 14px rgba(255,255,255,0.4);
+  }
+}
+

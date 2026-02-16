@@ -3,7 +3,9 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-12">
-              <h5 class="m-0 text-info">Profil Pengguna</h5>
+              <h4 class="m-0 font-weight-bold text-info">
+                <i class="fas fa-user-circle"></i> Profil Pengguna
+              </h4>
             </div>
           </div>
         </div>
@@ -18,7 +20,7 @@
             <section class="col-lg-12">
               <div class="row">
                 <div class="col-xl-4 col-md-4 col-sm-12">
-                  <div class="card">
+                  <div class="card card-modern">
                     <div class="card-body box-profile">
                       <div class="text-center">
                         <img class="profile-user-img img-fluid img-circle" src="<?= base_url();?>profil/<?= $dtpengguna['foto_pengguna']; ?>" alt="User profile picture">
@@ -33,7 +35,7 @@
                 </div>
 
                 <div class="col-xl-8 col-md-8 col-sm-12">
-                  <div class="card">
+                  <div class="card card-modern">
 
                     <form role="form" action="<?= site_url('Beranda/update_proses');?>" method="post" enctype="multipart/form-data">
                       <div class="card-body p-3">

@@ -63,10 +63,10 @@
                           <!-- <td style="text-align: center; vertical-align: middle;"><?= $data->harga_barang!=NULL ? "Rp. " . number_format($data->harga_barang,0,',','.') : 'Rp. 0';?></td> -->
                           <td style="text-align: center; vertical-align: middle;"><?= $data->deskripsi;?></td>
                           <td style="text-align: center; vertical-align: middle;">
-                            <a href="<?= site_url('Barang/update/'.$data->id_barang);?>" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Ubah Data <?= $menu." : ".$data->nama_barang;?>">
+                            <a href="<?= site_url('Barang/update/'.$data->id_barang);?>" class="btn btn-warning btn-sm mb-1" data-toggle="tooltip" title="Ubah Data <?= $menu." : ".$data->nama_barang;?>">
                               <i class="bi bi-pencil"></i>
                             </a>
-                            <a href="<?= site_url('Barang/delete/'.$data->id_barang);?>" class="btn btn-danger btn-sm tombol-hapus" data-toggle="tooltip" title="Hapus Data <?= $menu." : ".$data->nama_barang;?>">
+                            <a href="<?= site_url('Barang/delete/'.$data->id_barang);?>" class="btn btn-danger btn-sm mb-1 tombol-hapus" data-toggle="tooltip" title="Hapus Data <?= $menu." : ".$data->nama_barang;?>">
                               <i class="bi bi-trash"></i>
                             </a>
                           </td>

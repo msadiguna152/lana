@@ -10,7 +10,9 @@
           <a class="nav-link text-info" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-info"><marquee><b>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</b></marquee></a>
+          <a class="nav-link text-info navbar-running">
+  <span>Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut</span>
+</a>
         </li>
       </ul>
 

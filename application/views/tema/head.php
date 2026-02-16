@@ -19,33 +19,10 @@
   <link rel="stylesheet" href="<?= base_url('assets/')?>plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="<?= base_url('assets/')?>plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?= base_url('assets/dist/css/custom.css'); ?>">
 
   <!-- pace-progress -->
   <!-- <link rel="stylesheet" href="<?= base_url()?>assets/plugins/pace-progress/corner-indicator.css"> -->
 
-  <style type="text/css">
-    .ignielPelangi {
-      background: linear-gradient(45deg, #4bbcf4, #61c0bf, #bbded6, #ffb6b9, #faf3d9);
-      background-size: 500% 500%;
-      -webkit-animation: ignielGradient 12s ease infinite;
-      -moz-animation: ignielGradient 12s ease infinite;
-      animation: ignielGradient 12s ease infinite;
-    }
-    @-webkit-keyframes ignielGradient {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    @-moz-keyframes ignielGradient {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    @keyframes ignielGradient {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-  </style>
-  
+
 </head>

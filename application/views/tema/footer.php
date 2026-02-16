@@ -1,10 +1,25 @@
 
-<footer class="main-footer">
-  <img src="<?= base_url('assets/logo.png');?>" alt="Sistem Informasi Persediaan ATK - Kantah Kab. Tanah Laut" class="img img-fluid" style="height: 25px;">
-  <div class="float-right d-none d-sm-inline-block">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>All rights reserved.
+<footer class="main-footer text-sm">
+  <div class="d-flex align-items-center justify-content-between flex-wrap">
+    <div class="d-flex align-items-center">
+      <img src="<?= base_url('assets/logo.png');?>" 
+           alt="SIP ATK" 
+           style="height:25px;" 
+           class="mr-2">
+      <span>
+        <strong>Sistem Informasi Persediaan ATK</strong><br>
+        <small>Kantah Kab. Tanah Laut</small>
+      </span>
+    </div>
+
+    <div class="text-right">
+      <strong>Copyright &copy; <?= date('Y');?> </strong>
+      <a href="https://adminlte.io" target="_blank">AdminLTE</a>.
+      All rights reserved.
+    </div>
   </div>
 </footer>
+
 </div>
 <!-- ./wrapper -->
 
@@ -35,33 +50,70 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Bootstrap Switch -->
 <script src="<?= base_url('assets/')?>plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
 <script>
-$(document).ready(function () {
+  function animateCounter(element, target) {
+    let start = 0;
+    let increment = target / 40;
 
-  $('#id_pegawai').on('change', function () {
-    let id_pegawai = $(this).val();
+    let interval = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        element.innerText = target;
+        clearInterval(interval);
+      } else {
+        element.innerText = Math.floor(start);
+      }
+    }, 20);
+  }
 
-    if (id_pegawai) {
-      $.ajax({
-        url: "<?= base_url('Barang_keluar/get_seksi_by_pegawai'); ?>",
-        type: "POST",
-        data: { id_pegawai: id_pegawai },
-        dataType: "json",
-        success: function (res) {
-          if (res.status === true) {
-            $('#asal_permintaan').val(res.nama_bidang);
-          } else {
-            $('#asal_permintaan').val('');
-          }
-        }
-      });
-    } else {
-      $('#asal_permintaan').val('');
-    }
+  function loadDashboardData() {
+    fetch("<?= site_url('Beranda/get_dashboard_data'); ?>")
+    .then(response => response.json())
+    .then(data => {
+      animateCounter(document.getElementById('total_barang'), data.total_barang);
+      animateCounter(document.getElementById('barang_masuk'), data.barang_masuk);
+      animateCounter(document.getElementById('barang_keluar'), data.barang_keluar);
+      animateCounter(document.getElementById('stok_menipis'), data.stok_menipis);
+    });
+  }
 
+/* Load awal */
+  document.addEventListener("DOMContentLoaded", function(){
+    loadDashboardData();
   });
 
-});
+/* 🔄 Refresh otomatis tiap 10 detik */
+  setInterval(loadDashboardData, 10000);
+</script>
+
+<script>
+  $(document).ready(function () {
+
+    $('#id_pegawai').on('change', function () {
+      let id_pegawai = $(this).val();
+
+      if (id_pegawai) {
+        $.ajax({
+          url: "<?= base_url('Barang_keluar/get_seksi_by_pegawai'); ?>",
+          type: "POST",
+          data: { id_pegawai: id_pegawai },
+          dataType: "json",
+          success: function (res) {
+            if (res.status === true) {
+              $('#asal_permintaan').val(res.nama_bidang);
+            } else {
+              $('#asal_permintaan').val('');
+            }
+          }
+        });
+      } else {
+        $('#asal_permintaan').val('');
+      }
+
+    });
+
+  });
 </script>
 
 <script>
@@ -178,6 +230,7 @@ $(document).ready(function () {
     })
   })
 </script>
+
 <script>
   $(function () {
 
