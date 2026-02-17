@@ -51,8 +51,15 @@ class Mpegawai extends CI_Model {
 
 	public function get_jabatan($id)
 	{
-		return $this->db->select('id_jabatan,nama_jabatan')->from('jabatan')->where('id_bidang',$id)->order_by('nama_jabatan','ASC')->get();
+		$bidang = $this->db->select('id_bidang')->where('id_pegawai', $id)->get('pegawai')->row_array();
+
+		if (!$bidang) {
+			return [];
+		}
+
+		return $this->db->select('id_jabatan, nama_jabatan')->from('jabatan')->where('id_bidang', $bidang['id_bidang'])->order_by('nama_jabatan', 'ASC')->get();
 	}
+
 
 	public function update()
 	{

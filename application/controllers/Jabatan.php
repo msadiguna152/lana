@@ -5,8 +5,6 @@ class Jabatan extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Mjabatan');
 		$this->load->model('Mbidang');
-
-		
 	}
 	public function index(){
 		$data = array(

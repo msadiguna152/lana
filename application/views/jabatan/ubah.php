@@ -30,7 +30,7 @@
                           <select class="form-control select2bs4" name="id_bidang" data-placeholder="---Pilih Seksi---" required="">
                             <option value="">---Pilih Seksi---</option>
                             <?php foreach ($bidang->result() as $dtbidang) : ?>
-                              <option value="<?= $dtbidang->id_bidang;?>"><?= $dtbidang->nama_bidang;?></option>
+                              <option <?= $dtjabatan['id_bidang']==$dtbidang->id_bidang ?'selected':'';?> value="<?= $dtbidang->id_bidang;?>"><?= $dtbidang->nama_bidang;?></option>
                             <?php endforeach;?>
                           </select>
                         </div>
