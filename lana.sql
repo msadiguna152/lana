@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 17 Feb 2026 pada 10.39
+-- Generation Time: 17 Feb 2026 pada 23.29
 -- Versi Server: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
@@ -47,7 +47,7 @@ INSERT INTO `barang` (`id_barang`, `id_satuan`, `kode_barang`, `nama_barang`, `h
 (3, 1, '1010301001000004', 'Ballpoint Snowman', '', '0', '-', 0),
 (4, 1, '1010301001000007', 'Ballpoint Standard', '', '6', '-', 0),
 (5, 1, '1010301001000011', 'Spidol Snowman', '', '0', '-', 0),
-(6, 1, '1010301001000012', 'Pensil Staedler', '', '0', '-', 0),
+(6, 1, '1010301001000012', 'Pensil Staedler', '', '10', '', 0),
 (7, 3, '1010301001000016', 'Ballpoint Boxy', '', '0', '-', 0),
 (8, 3, '1010301001000017', 'Ballpoint V-7', '', '1', '-', 0),
 (9, 5, '1010301001000018', 'Pensil 2b Staedler', '', '3', '-', 0),
@@ -479,7 +479,8 @@ INSERT INTO `barang` (`id_barang`, `id_satuan`, `kode_barang`, `nama_barang`, `h
 (435, 4, '1010306010000010', 'Baterai Alkaline Aa (4+2)', '', '0', '-', 0),
 (436, 8, '1010310999000001', 'Mesin Penghancur Kertas', '', '0', '-', 0),
 (437, 1, '1010310999000001', 'Colokan 1,5 M 3 Lubang', '', '0', '-', 0),
-(438, 25, '1010399999000016', 'Materai', '', '306', '-', 0);
+(438, 25, '1010399999000016', 'Materai', '', '306', '-', 0),
+(439, 25, '1232123311', 'Kertas A10', '', '100', '', 0);
 
 -- --------------------------------------------------------
 
@@ -547,7 +548,7 @@ CREATE TABLE `bidang` (
 --
 
 INSERT INTO `bidang` (`id_bidang`, `nama_bidang`, `hide_bidang`) VALUES
-(1, 'Subbag Tata Usaha / Administrasi', 0),
+(1, 'Subbagian Tata Usaha', 0),
 (2, 'Bidang Penanganan Sengketa Pertanahan', 0),
 (3, 'Bidang Penataan & Pengendalian Pertanahan', 0),
 (4, 'Bidang Hak & Pendaftaran Tanah', 0),
@@ -582,7 +583,7 @@ INSERT INTO `jabatan` (`id_jabatan`, `id_bidang`, `nama_jabatan`, `keterangan_ja
 (8, 0, 'Analis Pengelolaan Keuangan Apbn Pertama', NULL, 0),
 (9, 0, 'Analis Sumber Daya Manusia Aparatur Pertama', NULL, 0),
 (10, 0, 'Penata Kadastral Pertama', NULL, 0),
-(11, 0, 'Penata Pertanahan Pertama', NULL, 0),
+(11, 4, 'Penata Pertanahan Pertama', '', 0),
 (12, 0, 'Analis Keuangan', NULL, 0),
 (13, 0, 'Penata Pertanahan Ahli Pertama', NULL, 0),
 (14, 0, 'Bendahara', NULL, 0),
@@ -590,8 +591,7 @@ INSERT INTO `jabatan` (`id_jabatan`, `id_bidang`, `nama_jabatan`, `keterangan_ja
 (16, 0, 'Petugas Ukur', NULL, 0),
 (17, 0, 'Penata Pertanahan Ahli Muda', NULL, 0),
 (18, 0, 'Asisten Penata Kadastral Terampil', NULL, 0),
-(19, 0, 'Analis Hukum Pertanahan', NULL, 0),
-(20, 0, 'Pengelola Informasi Pertanahan', NULL, 0),
+(19, 2, 'Analis Hukum Pertanahan', '', 0),
 (21, 0, 'Pengolah Data Yuridis Pertanahan', NULL, 0),
 (22, 0, 'Verifikator Berkas Permohonan Hak', NULL, 0),
 (23, 0, 'Asisten Pengadministrasian Umum', NULL, 0),
@@ -604,12 +604,14 @@ INSERT INTO `jabatan` (`id_jabatan`, `id_bidang`, `nama_jabatan`, `keterangan_ja
 (30, 0, 'Customer Service Officer', NULL, 0),
 (31, 0, 'Pengemudi', NULL, 0),
 (32, 0, 'Asisten Penata Kadastral Pemula', NULL, 0),
-(34, 0, 'Konsultan Perorangan', NULL, 0),
-(35, 0, 'Asisten Surveyor Kadastral', NULL, 0),
-(36, 0, 'Penata Pertanahan', NULL, 0),
-(37, 4, 'Pengelola Layanan Operasional', '', 0),
+(34, 4, 'Konsultan Perorangan', '', 0),
+(35, 4, 'Asisten Surveyor Kadastral', '', 0),
+(36, 5, 'Penata Pertanahan', '', 0),
+(37, 5, 'Pengelola Layanan Operasional', '', 0),
 (38, 3, 'Pengadministasi Perkantoran', '', 0),
-(39, 4, 'Penata Layanan Operasional', '', 0);
+(39, 4, 'Penata Layanan Operasional', '', 0),
+(40, 4, 'Analis Hukum Pertanahan', '', 0),
+(41, 1, 'Pengelola Informasi Pertanahan', '', 0);
 
 -- --------------------------------------------------------
 
@@ -673,11 +675,10 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `id_bidang`, `id_pangkat`, `id_jabatan`, `nama_pegawai`, `jenis_register`, `nip_no_reg`, `status_pegawai`) VALUES
-(1, 1, 3, 13, 'Adiguna', 'NIP', '12345', 'Aktif'),
-(3, 1, 3, 38, 'Pengusul', 'NIP', '3', 'Aktif'),
-(4, 4, 2, 39, 'Pengusul 2', 'NI PPPK', '2', 'Aktif'),
-(5, 1, 2, 39, 'Penyetuju', 'NI PPPK', '4', 'Aktif'),
-(6, 4, 22, 39, 'test', 'NIP', '6', 'Aktif');
+(7, 1, 12, 41, 'Maulana Rizki Muhammad', 'NIP', '199809192022041001', 'Aktif'),
+(8, 4, 17, 39, 'DENNY PRATIWI, S.K.M.', 'NI PPPK', '19921002 202521 2 07', 'Aktif'),
+(9, 4, 5, 39, 'MUHAMAD RIFKY, S.E.', 'NI PPPK', '19930722 202521 1 05', 'Aktif'),
+(10, 4, 22, 39, 'Adiguna', 'NIP', '123', 'Aktif');
 
 --
 -- Trigger `pegawai`
@@ -743,9 +744,9 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`id_pengguna`, `id_pegawai`, `nama_pengguna`, `username`, `password`, `level`, `foto_pengguna`, `status_pengguna`) VALUES
 (1, NULL, 'Adiguna', '1', 'c4ca4238a0b923820dcc509a6f75849b', 'Operator', 'lenovo_3.jpg', 'Aktif'),
-(3, 3, 'Pengusul', '3', 'eccbc87e4b5ce2fe28308fd9f2a7baf3', 'Pengusul', 'profil.png', 'Aktif'),
-(5, 5, 'Penyetuju', '4', 'a87ff679a2f3e71d9181a67b7542122c', 'Penyetuju', 'profil.png', 'Aktif'),
-(6, 6, 'test', '6', '1679091c5a880faf6fb5e6087eb1b2dc', 'Pengusul', 'profil.png', 'Aktif');
+(8, 8, 'DENNY PRATIWI, S.K.M.', '19921002 202521 2 07', 'd2aa5cc8b90cd566d43569d6fd4742da', '-', 'profil.png', 'Aktif'),
+(9, 9, 'MUHAMAD RIFKY, S.E.', '19930722 202521 1 05', '3aef8802db6a699ba32d28b376277d67', '-', 'profil.png', 'Aktif'),
+(10, 10, 'Adiguna', '123', '202cb962ac59075b964b07152d234b70', '-', 'profil.png', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -929,7 +930,7 @@ ALTER TABLE `satuan`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=439;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=440;
 --
 -- AUTO_INCREMENT for table `barang_keluar`
 --
@@ -949,7 +950,7 @@ ALTER TABLE `bidang`
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `pangkat`
 --
@@ -959,7 +960,7 @@ ALTER TABLE `pangkat`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `pengaturanttd`
 --
@@ -969,7 +970,7 @@ ALTER TABLE `pengaturanttd`
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `rincian_barang_keluar`
 --
