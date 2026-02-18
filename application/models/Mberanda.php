@@ -50,13 +50,9 @@ class Mberanda extends CI_Model {
 		$this->db->from('barang_keluar');
 		$this->db->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai','LEFT');
 		$this->db->join('jabatan','jabatan.id_jabatan=pegawai.id_jabatan');
-		if ($this->session->userdata('level') === 'Pengusul') {
-			$this->db->where('barang_keluar.id_pegawai', $this->session->userdata('id_pegawai'));
-		} elseif ($this->session->userdata('level') === 'Penyetuju') {
+		if ($this->session->userdata('level') !== 'Operator') {
 			$this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
 		};
-			// $this->db->where('MONTH(tanggal_barang_keluar)',$filter['1']);
-			// $this->db->where('YEAR(tanggal_barang_keluar)',$filter['0']);
 		$this->db->where('barang_keluar.status_barang_keluar', 'Menunggu');
 		$this->db->order_by('id_barang_keluar','DESC');
 		return $query = $this->db->get();

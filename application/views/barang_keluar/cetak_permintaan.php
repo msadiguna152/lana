@@ -117,14 +117,15 @@
     $this->db->select('*');
     $this->db->from('pegawai');
     $this->db->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan');
+    $this->db->where('pegawai.id_bidang',$dtbarang_keluar['id_bidang']);
     $this->db->like('LOWER(jabatan.nama_jabatan)', 'kepala');
-    $ttd = $this->db->get()->row();;
+    $ttd_penyetuju = $this->db->get()->row_array();
     ?>
     <td>
       Mengetahui,<br>
-      <?= var_dump($ttd); ?><br><br><br>
-      <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>
-      <?= $dtbarang_keluar['jenis_register']; ?>. <?= $dtbarang_keluar['nip_no_reg']; ?>
+      <br><br><br>
+      <u><?= $ttd_penyetuju['nama_pegawai']; ?></u><br>
+      <?= $ttd_penyetuju['jenis_register']; ?>. <?= $ttd_penyetuju['nip_no_reg']; ?>
     </td>
   </tr>
 </table>
@@ -168,13 +169,13 @@
 
 <table class="ttd no-border">
   <tr>
-    <td>
+    <td style="width: 50%;">
       Diserahkan Oleh,<br>
       <?= $ttd['jabatan_diserahkan_b1']; ?><br><?= $ttd['jabatan_diserahkan_b2']; ?><br><br><br><br>
       <u><?= $ttd['nama_diserahkan']; ?></u><br>
       NIP. <?= $ttd['nip_diserahkan']; ?>
     </td>
-    <td>
+    <td style="width: 50%;">
       Diterima Oleh,<br>
       <?= $dtbarang_keluar['nama_jabatan']; ?><br><br><br><br><br>
       <u><?= $dtbarang_keluar['nama_pegawai']; ?></u><br>

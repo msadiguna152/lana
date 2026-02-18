@@ -3,7 +3,7 @@
 class Mpengaturanttd extends CI_Model {
 	public function get_edit()
 	{
-		return $this->db->query("SELECT * from pengaturanttd where id_pengaturanttd=1")->row_array();
+		return $this->db->where('id_pengaturanttd', 1)->get('pengaturanttd')->row_array();
 	}
 	public function update()
 	{
