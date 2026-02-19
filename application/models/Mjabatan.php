@@ -49,13 +49,13 @@ class Mjabatan extends CI_Model {
 
     		for ($row = 2; $row <= $highestRow; $row++) {
 
-    			$nama_jabatan = strtolower(trim($worksheet->getCellByColumnAndRow(1, $row)->getValue()));
-    			$nama_bidang  = strtolower(trim($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
+    			$nama_jabatan = ucwords(trim($worksheet->getCellByColumnAndRow(1, $row)->getValue()));
+    			$nama_bidang  = ucwords(trim($worksheet->getCellByColumnAndRow(2, $row)->getValue()));
 
     			if (empty($nama_jabatan) || empty($nama_bidang)) continue;
 
     			/* ====== CEK / INSERT BIDANG ====== */
-    			$bidang = $this->db->where('LOWER(nama_bidang)', $nama_bidang, false)->get('bidang')->row_array();
+    			$bidang = $this->db->where('nama_bidang', ucwords($nama_bidang))->get('bidang')->row_array();
 
     			if ($bidang) {
     				$id_bidang = $bidang['id_bidang'];
@@ -67,7 +67,7 @@ class Mjabatan extends CI_Model {
     			}
 
     			/* ====== CEK JABATAN ====== */
-    			$exists = $this->db->where('LOWER(nama_jabatan)', $nama_jabatan, false)->where('id_bidang', $id_bidang)->get('jabatan')->num_rows();
+    			$exists = $this->db->where('nama_jabatan', ucwords($nama_jabatan))->where('id_bidang', $id_bidang)->get('jabatan')->num_rows();
 
     			if ($exists == 0) {
     				$this->db->insert('jabatan', [

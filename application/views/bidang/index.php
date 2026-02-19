@@ -31,9 +31,9 @@
                     <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
                       <a href="<?= site_url('Bidang/insert')?>" class="btn btn-block btn-info">Tambah Data</a>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
+                    <!-- <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
                       <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Import Data</a>
-                    </div>
+                    </div> -->
                   </div>
                 </div><!-- /.card-header -->
                 <div class="card-body">

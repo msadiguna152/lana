@@ -29,9 +29,9 @@
                     <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
                       <a href="<?= site_url('Jabatan/insert')?>" class="btn btn-block btn-info">Tambah Data</a>
                     </div>
-                    <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
+                    <!-- <div class="col-lg-2 col-md-6 col-sm-12 mb-1">
                       <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Import Data</a>
-                    </div>
+                    </div> -->
                   </div>
                 </div><!-- /.card-header -->
                 <div class="card-body">
@@ -87,7 +87,7 @@
           <div class="modal-content">
             <div class="modal-body">
               <div class="form-group">
-                <label for="id_asal">Pilih File Excel (<a href="<?= base_url();?>excel/import_jabatan.xlsx">Unduh Format</a>)</label>
+                <label for="id_asal">Pilih File Excel (<a href="<?= base_url();?>excel/import_jabatan2.xlsx">Unduh Format</a>)</label>
                 <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" class="form-control-file" name="file"  required>
               </div>
             </div>
