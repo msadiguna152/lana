@@ -67,7 +67,7 @@
   KANTOR PERTANAHAN KABUPATEN TANAH LAUT
 </p>
 
-<p class="right">Pelaihari, <?= format_indo($dtbarang_keluar['tanggal_barang_keluar']) ?></p>
+<p class="right">Pelaihari, <?= format_indo4($dtbarang_keluar['tanggal_barang_keluar']) ?></p>
 
 <table class="no-border">
   <tr>
@@ -96,7 +96,7 @@
       <td class="center"><?= $no++ ?></td>
       <td><?= $b->nama_barang ?> (<?= $b->nama_satuan ?>)</td>
       <td class="center"><?= number_format($b->stok_barang_keluar) ?></td>
-      <td></td>
+      <td><?= $b->rincian ?></td>
     </tr>
   <?php endforeach; ?>
 </tbody>
@@ -158,14 +158,14 @@
       <td><?= $b->kode_barang ?></td>
       <td><?= $b->nama_barang ?> (<?= $b->nama_satuan ?>)</td>
       <td class="center"><?= number_format($b->stok_barang_keluar) ?></td>
-      <td></td>
+      <td><?= $b->rincian ?></td>
     </tr>
   <?php endforeach; ?>
 </tbody>
 </tbody>
 </table>
 
-<p class="right">Pelaihari, <?= format_indo($dtbarang_keluar['tanggal_barang_keluar']) ?></p>
+<p class="right">Pelaihari, <?= format_indo4($dtbarang_keluar['tanggal_barang_keluar']) ?></p>
 
 <table class="ttd no-border">
   <tr>

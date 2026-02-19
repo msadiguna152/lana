@@ -91,7 +91,7 @@
                       <?= $status ?? 'Menunggu'; ?>
                     </span>
                   </td>
-                  <td class="text-center"><?= $data->keterangan_barang_keluar; ?></td>
+                  <td class="text-center"><?= $data->tanggal_barang_keluar; ?></td>
                   <td class="text-center">
 
                     <a href="<?= site_url('Barang_keluar/rincian/'.$data->id_barang_keluar); ?>" class="btn btn-info btn-sm" data-toggle="tooltip" title="Rincian">
@@ -114,7 +114,7 @@
                  <a href="<?= site_url('Barang_keluar/delete/'.$data->id_barang_keluar); ?>" class="btn btn-danger btn-sm tombol-hapus">
                    <i class="bi bi-trash"></i>
                  </a>
-                 <a href="<?= site_url('Barang_keluar/cetak_permintaan/'.$data->id_barang_keluar); ?>" target="_BLANK" class="btn btn-primary btn-sm">
+                 <a href="<?= site_url('Barang_keluar/cetak_permintaan/'.$data->id_barang_keluar); ?>" target="_BLANK" class="btn btn-primary btn-sm <?= (!empty($data->tanggal_barang_keluar)) ? '' : 'disabled'; ?>">
                    <i class="bi bi-printer"></i>
                  </a>
                <?php endif; ?>
