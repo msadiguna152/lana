@@ -100,7 +100,7 @@ class Mbarang_keluar extends CI_Model {
         ->join('satuan s','s.id_satuan=b.id_satuan','left')
         ->where('bk.tanggal_barang_keluar >=',$dari)
         ->where('bk.tanggal_barang_keluar <=',$sampai)
-        ->order_by('bk.tanggal_barang_keluar','ASC');
+        ->order_by('bk.no_berita_acara','ASC');
 
         if ($this->session->userdata('level') !== 'Operator') {
             $this->db->where('p.id_bidang',$this->session->userdata('id_bidang'));

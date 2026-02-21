@@ -41,19 +41,40 @@
       </tr>
     </thead>
     <tbody style="text-align: left; vertical-align: top;">
-      <?php $no=1; foreach ($last_query->result() as $row) : ?>
-      <tr>
-        <td><?= $no++; ?></td>
-        <td><?= $row->no_berita_acara; ?></td>
-        <td><?= $row->no_bukti; ?></td>
-        <td><?= format_indo($row->tanggal_barang_keluar); ?></td>
-        <td class="left"><?= $row->nama_pegawai; ?></td>
-        <td><?= $row->kode_barang; ?></td>
-        <td class="left"><?= $row->nama_barang; ?></td>
-        <td><b><?= number_format($row->jumlah_keluar); ?></b></td>
-        <td><?= $row->nama_satuan; ?></td>
-      </tr>
-      <?php $no++; endforeach;?>
+      <?php
+      $data = $last_query->result();
+
+      $grouped = [];
+      foreach ($data as $row) {
+        $grouped[$row->no_bukti][] = $row;
+      }
+
+      $no = 1;
+      foreach ($grouped as $no_bukti => $items):
+        $rowspan = count($items);
+        $first = true;
+
+        foreach ($items as $row):
+          ?>
+          <tr>
+            <?php if ($first): ?>
+              <td rowspan="<?= $rowspan ?>"><?= $no++; ?></td>
+              <td rowspan="<?= $rowspan ?>"><?= $row->no_berita_acara; ?></td>
+              <td rowspan="<?= $rowspan ?>"><?= $row->no_bukti; ?></td>
+              <td rowspan="<?= $rowspan ?>"><?= format_indo($row->tanggal_barang_keluar); ?></td>
+              <td rowspan="<?= $rowspan ?>" class="left"><?= $row->nama_pegawai; ?></td>
+            <?php endif; ?>
+
+            <td><?= $row->kode_barang; ?></td>
+            <td class="left"><?= $row->nama_barang; ?></td>
+            <td><b><?= number_format($row->jumlah_keluar); ?></b></td>
+            <td><?= $row->nama_satuan; ?></td>
+          </tr>
+          <?php
+          $first = false;
+        endforeach;
+      endforeach;
+      ?>
     </tbody>
   </table>
 
