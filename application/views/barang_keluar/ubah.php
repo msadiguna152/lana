@@ -108,6 +108,8 @@
 
                                   <td style="text-align: center; vertical-align: left;width: 200px;">
                                     <?= $data2->permintaan;?> (<?= $data2->nama_satuan;?>)
+                                    <input type="text" hidden name="permintaan[]" value="<?= $data2->permintaan;?>">
+
                                   </td>
 
                                   <td style="text-align: center; vertical-align: left;">

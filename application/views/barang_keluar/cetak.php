@@ -70,7 +70,7 @@
                           <td><?= $row->nama_satuan; ?></td>
                           <td class="left"><?= $row->keterangan_barang_keluar; ?></td>
                         </tr>
-                        <?php $no++; endforeach;?>
+                        <?php endforeach;?>
                       </tbody>
                     </table>
                   </div>

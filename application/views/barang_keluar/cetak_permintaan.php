@@ -123,7 +123,7 @@
     ?>
     <td>
       Mengetahui,<br>
-      <br><br><br>
+      <?= $ttd_penyetuju['nama_jabatan']; ?><br><br><br>
       <u><?= $ttd_penyetuju['nama_pegawai']; ?></u><br>
       <?= $ttd_penyetuju['jenis_register']; ?>. <?= $ttd_penyetuju['nip_no_reg']; ?>
     </td>
