@@ -22,7 +22,7 @@
           </a>
         </li>
 
-        <?php $jnotif = $this->db->query("SELECT * FROM `barang_keluar` JOIN pegawai ON barang_keluar.id_pegawai=pegawai.id_pegawai WHERE barang_keluar.status_barang_keluar='Belum Terkonfirmasi' ORDER BY barang_keluar.id_barang_keluar DESC"); ?>
+        <?php $jnotif = $this->db->query("SELECT * FROM `barang_keluar` JOIN pegawai ON barang_keluar.id_pegawai=pegawai.id_pegawai WHERE barang_keluar.status_barang_keluar='Menunggu' ORDER BY barang_keluar.id_barang_keluar DESC"); ?>
 
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
@@ -42,6 +42,68 @@
             <a href="<?= base_url('Permintaan')?>" class="dropdown-item dropdown-footer">Lihat semua permintaan PKM</a>
           </div>
         </li>
+
+        <?php $jnotif = $this->db->query("SELECT * FROM `barang_keluar` JOIN pegawai ON barang_keluar.id_pegawai=pegawai.id_pegawai WHERE barang_keluar.status_barang_keluar='Menunggu' ORDER BY barang_keluar.id_barang_keluar DESC"); ?>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link position-relative" data-toggle="dropdown" href="#">
+            <i class="far fa-bell fa-lg"></i>
+
+            <?php if ($jnotif->num_rows() > 0): ?>
+              <span class="badge badge-danger navbar-badge">
+                <?= $jnotif->num_rows(); ?>
+              </span>
+            <?php endif; ?>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right shadow">
+
+            <span class="dropdown-header font-weight-bold">
+              🔔 Notifikasi Permintaan
+            </span>
+
+            <div class="dropdown-divider"></div>
+
+            <?php if ($jnotif->num_rows() > 0): ?>
+              <?php foreach ($jnotif->result() as $dtnotif): ?>
+
+                <a href="<?= site_url('Permintaan/update/'.$dtnotif->id_barang_keluar); ?>" 
+                 class="dropdown-item notif-item">
+
+                 <div class="d-flex align-items-center">
+                  <div class="notif-icon bg-warning">
+                    <i class="fas fa-box-open text-white"></i>
+                  </div>
+
+                  <div class="ml-3">
+                    <div class="font-weight-bold">
+                      <?= substr($dtnotif->nama_pegawai, 0, 15); ?>...
+                    </div>
+                    <small class="text-muted">
+                      <?= format_indo($dtnotif->tanggal_pengajuan); ?>
+                    </small>
+                  </div>
+                </div>
+
+              </a>
+
+              <div class="dropdown-divider"></div>
+
+            <?php endforeach; ?>
+          <?php else: ?>
+            <div class="dropdown-item text-center text-muted">
+              <i class="far fa-smile"></i><br>
+              Tidak ada notifikasi
+            </div>
+          <?php endif; ?>
+
+          <a href="<?= site_url('Permintaan'); ?>" 
+           class="dropdown-item dropdown-footer text-primary font-weight-bold">
+           Lihat semua permintaan
+         </a>
+
+       </div>
+     </li>
 
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">

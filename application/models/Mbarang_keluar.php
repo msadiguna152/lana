@@ -190,9 +190,7 @@ class Mbarang_keluar extends CI_Model {
 
     private function _filterLevel()
     {
-        if ($this->session->userdata('level') === 'Pengusul') {
-            $this->db->where('pegawai.id_bidang',$this->session->userdata('id_bidang'));
-        } elseif ($this->session->userdata('level') === 'Penyetuju') {
+        if ($this->session->userdata('level') != 'Operator') {
             $this->db->where('pegawai.id_bidang',$this->session->userdata('id_bidang'));
         }
     }

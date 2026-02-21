@@ -24,5 +24,29 @@
   <!-- pace-progress -->
   <!-- <link rel="stylesheet" href="<?= base_url()?>assets/plugins/pace-progress/corner-indicator.css"> -->
 
+  <style>
+    .navbar-badge {
+      font-size: 11px;
+      padding: 5px 7px;
+      border-radius: 50%;
+    }
+
+    .notif-item {
+      transition: 0.2s;
+    }
+
+    .notif-item:hover {
+      background-color: #f4f6f9;
+    }
+
+    .notif-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 
 </head>

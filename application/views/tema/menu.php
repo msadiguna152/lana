@@ -24,27 +24,6 @@
           </a>
         </li>
 
-        <?php $jnotif = $this->db->query("SELECT * FROM `barang_keluar` JOIN pegawai ON barang_keluar.id_pegawai=pegawai.id_pegawai WHERE barang_keluar.status_barang_keluar='Menunggu' ORDER BY barang_keluar.id_barang_keluar DESC"); ?>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge"><?= $jnotif->num_rows(); ?></span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">Pemberitahuan Permintaan</span>
-            <?php foreach ($jnotif->result() as $dtnotif) : ?>
-              <div class="dropdown-divider"></div>
-              <a href="<?= base_url();?>Barang_keluar/update/<?= $dtnotif->id_barang_keluar; ?>" class="dropdown-item">
-                <?= $dtnotif->nama_pegawai;?>
-                <span class="float-right text-muted text-sm"><?= format_indo($dtnotif->tanggal_pengajuan);?></span>
-              </a>
-              <div class="dropdown-divider"></div>
-            <?php endforeach;?>
-            <a href="<?= base_url('Barang_keluar')?>" class="dropdown-item dropdown-footer">Lihat Semua</a>
-          </div>
-        </li>
-
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
             <i class="fas fa-expand-arrows-alt"></i>
