@@ -31,6 +31,22 @@ class Mbarang_keluar extends CI_Model {
         return $this->db->get();
     }
 
+    /* ================= GET PEGAWAI================= */
+    public function get_pegawai()
+    {
+        $this->db->select('*');
+        $this->db->from('pegawai');
+        $this->db->join('pangkat','pangkat.id_pangkat=pegawai.id_pangkat','LEFT');
+        $this->db->join('bidang','bidang.id_bidang=pegawai.id_bidang','LEFT');
+        $this->db->join('jabatan','jabatan.id_jabatan=pegawai.id_jabatan');
+        if ($this->session->userdata('level') === 'Pengusul') {
+            $this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
+        }
+        $this->db->order_by('pegawai.id_pegawai','DESC');
+        
+        return $query = $this->db->get();
+    }
+
     /* ================= EDIT ================= */
     public function get_edit($id)
     {
@@ -190,7 +206,7 @@ class Mbarang_keluar extends CI_Model {
 
     private function _filterLevel()
     {
-        if ($this->session->userdata('level') != 'Operator') {
+        if ($this->session->userdata('level') === 'Pengusul') {
             $this->db->where('pegawai.id_bidang',$this->session->userdata('id_bidang'));
         }
     }

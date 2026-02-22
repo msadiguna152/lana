@@ -52,14 +52,9 @@ class Barang_keluar extends CI_Controller {
 			'kodeUrut'  => $this->Mbarang_keluar->kodeUrut(),
 			'kodeBA'    => $this->Mbarang_keluar->kodeBA(),
 			'barang'    => $this->Mbarang->get(),
-			'levelUser' => $this->session->userdata('level')
+			'levelUser' => $this->session->userdata('level'),
+			'pegawai' 	=> $this->Mbarang_keluar->get_pegawai()
 		];
-
-		if ($this->_isOperator()) {
-			$data['pegawai'] = $this->Mpegawai->get($this->session->userdata('id_pegawai'));
-		} else {
-			$data['pegawai'] = $this->Mpegawai->get2($this->session->userdata('id_bidang'));
-		}
 
 		$this->_loadView('barang_keluar/tambah', $data);
 	}
@@ -94,14 +89,9 @@ class Barang_keluar extends CI_Controller {
 			'dtbarang_keluar'        => $this->Mbarang_keluar->get_edit($id),
 			'rincian_barang_keluar'  => $this->Mbarang_keluar->get_rincian_barang_keluar($id),
 			'barang'                 => $this->Mbarang->get(),
-			'levelUser'              => $this->session->userdata('level')
+			'levelUser' 			 => $this->session->userdata('level'),
+			'pegawai' 				 => $this->Mbarang_keluar->get_pegawai()
 		];
-
-		if ($this->_isOperator()) {
-			$data['pegawai'] = $this->Mpegawai->get($this->session->userdata('id_pegawai'));
-		} else {
-			$data['pegawai'] = $this->Mpegawai->get2($this->session->userdata('id_bidang'));
-		}
 
 		$this->_loadView('barang_keluar/ubah', $data);
 	}
@@ -184,7 +174,7 @@ class Barang_keluar extends CI_Controller {
 	}
 
 	private function _isOperator(){
-		return $this->session->userdata('level') === 'Operator';
+		return $this->session->userdata('level') === 'Pengusul';
 	}
 
 	private function _setValidationInsert(){

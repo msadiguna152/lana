@@ -61,7 +61,7 @@
                   <th>No. Bukti</th>
                   <th>No. Berita Acara</th>
                   <th>Pemohon</th>
-                  <th>Tanggal Pengajuan</th>
+                  <th>Tanggal</th>
                   <th>Status</th>
                   <th>Keterangan</th>
                   <th>Opsi</th>
@@ -77,7 +77,11 @@
                     <b class="text-info"><?= $data->nama_pegawai ?? '-'; ?></b><br>
                     <?= $data->jenis_register ?? ''; ?> <?= $data->nip_no_reg ?? ''; ?>
                   </td>
-                  <td class="text-center"><?= format_indo($data->tanggal_pengajuan); ?></td>
+                  <td class="text-center">
+                    Pengajuan : <?= format_indo($data->tanggal_pengajuan); ?> <br>
+                    Keluar : <?= (!empty($data->tanggal_barang_keluar)) ? format_indo($data->tanggal_barang_keluar) : '-'; ?>
+                      
+                  </td>
                   <td class="text-center">
                     <?php
                     $status = $data->status_barang_keluar;
@@ -91,14 +95,14 @@
                       <?= $status ?? 'Menunggu'; ?>
                     </span>
                   </td>
-                  <td class="text-center"><?= $data->tanggal_barang_keluar; ?></td>
+                  <td class="text-center"><?= $data->keterangan_barang_keluar; ?></td>
                   <td class="text-center">
 
                     <a href="<?= site_url('Barang_keluar/rincian/'.$data->id_barang_keluar); ?>" class="btn btn-info btn-sm" data-toggle="tooltip" title="Rincian">
                      <i class="bi bi-eye"></i>
                    </a>
 
-                   <?php if ($levelUser !== "Operator"): ?>
+                   <?php if ($levelUser === "Pengusul"): ?>
                     <?php if (in_array($data->status_barang_keluar, ['Menunggu','Ditolak'])): ?>
                       <a href="<?= site_url('Barang_keluar/update/'.$data->id_barang_keluar); ?>" class="btn btn-warning btn-sm" title="Ubah">
                        <i class="bi bi-pencil"></i>

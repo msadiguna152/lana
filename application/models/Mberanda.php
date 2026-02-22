@@ -50,7 +50,7 @@ class Mberanda extends CI_Model {
 		$this->db->from('barang_keluar');
 		$this->db->join('pegawai','pegawai.id_pegawai=barang_keluar.id_pegawai','LEFT');
 		$this->db->join('jabatan','jabatan.id_jabatan=pegawai.id_jabatan');
-		if ($this->session->userdata('level') !== 'Operator') {
+		if ($this->session->userdata('level') === 'Pengusul') {
 			$this->db->where('pegawai.id_bidang', $this->session->userdata('id_bidang'));
 		};
 		$this->db->where('barang_keluar.status_barang_keluar', 'Menunggu');
