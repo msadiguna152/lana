@@ -33,7 +33,10 @@
                       <a data-toggle="modal" data-target="#exampleModal" class="btn btn-block btn-info">Filter</a>
                     </div>
                     <div class="col-lg-2 col-md-6 col-sm-12">
-                      <a href="<?= site_url('Barang_masuk/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a>
+                      <button class="btn btn-block btn-info" data-toggle="modal" data-target="#downloadModal">
+                        Download Laporan
+                      </button>
+                      <!-- <a href="<?= site_url('Barang_masuk/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a> -->
                     </div>
                   </div>
                 </div><!-- /.card-header -->
@@ -106,6 +109,54 @@
             </div>
           </div>
         </form>
+      </div>
+    </div>
+
+
+    <div class="modal fade" id="downloadModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+
+          <div class="modal-header bg-gradient-info text-white">
+            <h5 class="modal-title font-weight-bold">
+              <i class="fas fa-download mr-2"></i> Download Laporan
+            </h5>
+            <button type="button" class="close text-white" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body text-center py-4">
+
+            <p class="mb-4 text-muted">
+              Pilih format file yang ingin diunduh
+            </p>
+
+            <div class="row justify-content-center">
+
+              <!-- PDF -->
+              <div class="col-5">
+                <a href="<?= site_url('Barang_masuk/hasil_cetak')?>" target="_blank" class="download-box pdf-box">
+                  <i class="fas fa-file-pdf fa-4x"></i>
+                  <h6 class="mt-3">PDF</h6>
+
+                </a>
+              </div>
+
+              <!-- EXCEL -->
+              <div class="col-5">
+                <a href="<?= site_url('Barang_masuk/hasil_cetak2')?>" target="_blank" class="download-box excel-box">
+                  <i class="fas fa-file-excel fa-4x"></i>
+                  <h6 class="mt-3">Excel</h6>
+
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
       </div>
     </div>
 

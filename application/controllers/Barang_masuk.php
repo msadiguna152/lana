@@ -145,6 +145,25 @@ class Barang_masuk extends CI_Controller {
 		$this->load->view('barang_masuk/hasil_cetak',$data);
 	}
 
+	public function hasil_cetak2(){
+		$query = $this->session->userdata('last_query');
+		$data['last_query'] = $this->db->query($query);
+
+		// Format tanggal & jam
+		$tanggal = date('Y-m-d');
+		$jam     = date('H-i-s');
+
+		$nama_file = "Laporan_Barang_Masuk_{$tanggal}_{$jam}.xls";
+
+    	// Header Excel
+		header("Content-Type: application/vnd.ms-excel");
+		header("Content-Disposition: attachment; filename={$nama_file}");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+
+		$this->load->view('barang_masuk/hasil_cetak2', $data);
+	}
+
 }
 
 /* End of file welcome.php */

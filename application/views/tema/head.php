@@ -47,6 +47,42 @@
       align-items: center;
       justify-content: center;
     }
+
+    .download-box {
+      display: block;
+      padding: 25px 10px;
+      border-radius: 10px;
+      transition: 0.3s;
+      text-decoration: none;
+      color: #333;
+      background: #f8f9fa;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .download-box:hover {
+      transform: translateY(-5px);
+      text-decoration: none;
+    }
+
+    .pdf-box {
+      border: 2px solid #dc3545;
+      color: #dc3545;
+    }
+
+    .pdf-box:hover {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    .excel-box {
+      border: 2px solid #28a745;
+      color: #28a745;
+    }
+
+    .excel-box:hover {
+      background: #28a745;
+      color: #fff;
+    }
   </style>
 
 </head>

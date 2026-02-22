@@ -32,9 +32,14 @@
                     <div class="col-lg-2 col-md-6 col-sm-12">
                       <a data-toggle="modal" data-target="#exampleModal"class="btn btn-block btn-info">Filter</a>
                     </div>
+
                     <div class="col-lg-2 col-md-6 col-sm-12">
-                      <a href="<?= site_url('Barang_keluar/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a>
+                      <button class="btn btn-block btn-info" data-toggle="modal" data-target="#downloadModal">
+                        Download Laporan
+                      </button>
+                      <!-- <a href="<?= site_url('Barang_keluar/hasil_cetak')?>" target="_blank" class="btn btn-block btn-info">Cetak Semua</a> -->
                     </div>
+
                   </div>
                 </div><!-- /.card-header -->
                 <div class="card-body">
@@ -70,45 +75,90 @@
                           <td><?= $row->nama_satuan; ?></td>
                           <td class="left"><?= $row->keterangan_barang_keluar; ?></td>
                         </tr>
-                        <?php endforeach;?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div><!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+                      <?php endforeach;?>
+                    </tbody>
+                  </table>
+                </div>
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
 
-            </section>
-            <!-- /.Left col -->
+          </section>
+          <!-- /.Left col -->
 
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form role="form" action="<?= site_url('Barang_keluar/cetak');?>" method="GET" enctype="multipart/form-data">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="dari_tanggal">Dari Tanggal</label>
+              <input type="date" class="form-control" name="dari_tanggal" required>
+            </div>
+            <div class="form-group">
+              <label for="sampai_tanggal">Sampai Tanggal</label>
+              <input type="date" class="form-control" name="sampai_tanggal" required>
+            </div>
           </div>
-          <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-info">Tampilkan Data</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <form role="form" action="<?= site_url('Barang_keluar/cetak');?>" method="GET" enctype="multipart/form-data">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="dari_tanggal">Dari Tanggal</label>
-                <input type="date" class="form-control" name="dari_tanggal" required>
-              </div>
-              <div class="form-group">
-                <label for="sampai_tanggal">Sampai Tanggal</label>
-                <input type="date" class="form-control" name="sampai_tanggal" required>
-              </div>
+  <div class="modal fade" id="downloadModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+
+        <div class="modal-header bg-gradient-info text-white">
+          <h5 class="modal-title font-weight-bold">
+            <i class="fas fa-download mr-2"></i> Download Laporan
+          </h5>
+          <button type="button" class="close text-white" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body text-center py-4">
+
+          <p class="mb-4 text-muted">
+            Pilih format file yang ingin diunduh
+          </p>
+
+          <div class="row justify-content-center">
+
+            <!-- PDF -->
+            <div class="col-5">
+              <a href="<?= site_url('Barang_keluar/hasil_cetak')?>" target="_blank" class="download-box pdf-box">
+                <i class="fas fa-file-pdf fa-4x"></i>
+                <h6 class="mt-3">PDF</h6>
+
+              </a>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-              <button type="submit" class="btn btn-info">Tampilkan Data</button>
+
+            <!-- EXCEL -->
+            <div class="col-5">
+              <a href="<?= site_url('Barang_keluar/hasil_cetak2')?>" target="_blank" class="download-box excel-box">
+                <i class="fas fa-file-excel fa-4x"></i>
+                <h6 class="mt-3">Excel</h6>
+
+              </a>
             </div>
+
           </div>
-        </form>
+
+        </div>
+
       </div>
     </div>
-
-    
+  </div>

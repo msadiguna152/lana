@@ -78,10 +78,10 @@
     </tbody>
   </table>
 
-  <div class="no-print" style="margin-top:15px">
+  <!-- <div class="no-print" style="margin-top:15px">
     <strong>Last Query:</strong>
     <pre><?= $this->db->last_query(); ?></pre>
   </div>
-
+ -->
 </body>
 </html>

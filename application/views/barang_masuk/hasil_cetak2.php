@@ -43,7 +43,7 @@
       <?php
       $data = $last_query->result();
 
-// Kelompokkan berdasarkan no_barang_masuk
+      // Kelompokkan berdasarkan no_barang_masuk
       $grouped = [];
       foreach ($data as $row) {
         $grouped[$row->no_barang_masuk][] = $row;
