@@ -21,31 +21,31 @@
 
   <h3 align="center">LAPORAN STOK BARANG</h3>
 
-  <table>
-    <thead>
+  <table id="example2" width="100%" class="table table-bordered table-hover">
+    <thead align="center">
       <tr>
         <th style="text-align: center; vertical-align: middle;">No</th>
         <th style="text-align: center; vertical-align: middle;">Kode Barang </th>
         <th style="text-align: center; vertical-align: middle;">Nama Barang</th>
-        <th style="text-align: center; vertical-align: middle;">Barang Masuk</th>
-        <th style="text-align: center; vertical-align: middle;">Barang Keluar</th>
-        <th style="text-align: center; vertical-align: middle;">Stok Akhir</th>
+        <th>Stok Awal</th>
+        <th>Barang Masuk</th>
+        <th>Barang Keluar</th>
+        <th>Stok Akhir</th>
         <th style="text-align: center; vertical-align: middle;">Satuan</th>
-        <!-- <th style="text-align: center; vertical-align: middle;">Harga</th> -->
-        <!-- <th style="text-align: center; vertical-align: middle;">Deskripsi</th> -->
       </tr>
     </thead>
-    <tbody>
+    <tbody style="text-align: left; vertical-align: top;">
       <?php $no=1; foreach ($last_query->result() as $data) : ?>
       <tr>
         <td style="text-align: center; vertical-align: middle;"><?= $no;?></td>
         <td style="text-align: center; vertical-align: middle;"><?= $data->kode_barang;?></td>
         <td style="text-align: center; vertical-align: middle;"><?= $data->nama_barang;?></td>
+        <td style="text-align: center; vertical-align: middle;"><?= number_format($data->stok_barang-$data->total_masuk+$data->total_keluar) ?></td>
+
         <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_masuk) ?></td>
         <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_keluar) ?></td>
-        <td style="text-align: center; vertical-align: middle;"><b><?= number_format($data->stok_akhir) ?></b></td>
+        <td style="text-align: center; vertical-align: middle;"><b><?= number_format($data->stok_akhir+$data->stok_barang-$data->total_masuk+$data->total_keluar) ?></b></td>
         <td style="text-align: center; vertical-align: middle;"><?= $data->nama_satuan;?></td>
-        <!-- <td style="text-align: center; vertical-align: middle;"><?= $data->deskripsi;?></td> -->
       </tr>
       <?php $no++; endforeach;?>
     </tbody>
