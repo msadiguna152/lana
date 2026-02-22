@@ -117,7 +117,7 @@ class Mbarang extends CI_Model {
 		$dari   = $this->db->escape($dari);
 		$sampai = $this->db->escape($sampai);
 
-		$this->db->select('b.id_barang,b.kode_barang,b.nama_barang,b.deskripsi,s.nama_satuan,COALESCE(m.total_masuk,0) AS total_masuk,COALESCE(k.total_keluar,0) AS total_keluar,(COALESCE(m.total_masuk,0)-COALESCE(k.total_keluar,0)) AS stok_akhir', false);
+		$this->db->select('b.stok_barang,b.id_barang,b.kode_barang,b.nama_barang,b.deskripsi,s.nama_satuan,COALESCE(m.total_masuk,0) AS total_masuk,COALESCE(k.total_keluar,0) AS total_keluar,(COALESCE(m.total_masuk,0)-COALESCE(k.total_keluar,0)) AS stok_akhir', false);
 
 		$this->db->from('barang b');
 		$this->db->join('satuan s','b.id_satuan=s.id_satuan','left');
@@ -126,8 +126,8 @@ class Mbarang extends CI_Model {
 
 		$this->db->join('(SELECT rbk.id_barang,SUM(rbk.stok_barang_keluar) AS total_keluar FROM rincian_barang_keluar rbk JOIN barang_keluar bk ON rbk.id_barang_keluar=bk.id_barang_keluar WHERE bk.tanggal_barang_keluar BETWEEN '.$dari.' AND '.$sampai.' GROUP BY rbk.id_barang) k','b.id_barang=k.id_barang','left',false);
 
+		$this->db->having('b.stok_barang >', 0);
 		$this->db->order_by('b.id_barang','ASC');
-		$this->db->having('stok_akhir >',0);
 
 		$sql = $this->db->get();
 

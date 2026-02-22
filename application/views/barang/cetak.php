@@ -51,6 +51,7 @@
                           <th style="text-align: center; vertical-align: middle;">No</th>
                           <th style="text-align: center; vertical-align: middle;">Kode Barang </th>
                           <th style="text-align: center; vertical-align: middle;">Nama Barang</th>
+                          <th>Stok Awal</th>
                           <th>Barang Masuk</th>
                           <th>Barang Keluar</th>
                           <th>Stok Akhir</th>
@@ -66,9 +67,11 @@
                           <td style="text-align: center; vertical-align: middle;"><?= $no;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->kode_barang;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_barang;?></td>
+                          <td style="text-align: center; vertical-align: middle;"><?= number_format($data->stok_barang-$data->total_masuk+$data->total_keluar) ?></td>
+
                           <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_masuk) ?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= number_format($data->total_keluar) ?></td>
-                          <td style="text-align: center; vertical-align: middle;"><b><?= number_format($data->stok_akhir) ?></b></td>
+                          <td style="text-align: center; vertical-align: middle;"><b><?= number_format($data->stok_akhir+$data->stok_barang-$data->total_masuk+$data->total_keluar) ?></b></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_satuan;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->deskripsi;?></td>
                           <td style="text-align: center; vertical-align: middle;"><a href="<?= site_url('Barang/cetak_rincian_perbarang?id_barang='.$data->id_barang.'&dari='.$dari_tanggal.'&sampai='.$sampai_tanggal)?>" target="_BLANK">Cetak</a></td>
