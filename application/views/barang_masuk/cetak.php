@@ -127,19 +127,15 @@
           </div>
 
           <div class="modal-body text-center py-4">
-
             <p class="mb-4 text-muted">
               Pilih format file yang ingin diunduh
             </p>
-
             <div class="row justify-content-center">
-
               <!-- PDF -->
               <div class="col-5">
                 <a href="<?= site_url('Barang_masuk/hasil_cetak')?>" target="_blank" class="download-box pdf-box">
                   <i class="fas fa-file-pdf fa-4x"></i>
                   <h6 class="mt-3">PDF</h6>
-
                 </a>
               </div>
 
@@ -148,14 +144,10 @@
                 <a href="<?= site_url('Barang_masuk/hasil_cetak2')?>" target="_blank" class="download-box excel-box">
                   <i class="fas fa-file-excel fa-4x"></i>
                   <h6 class="mt-3">Excel</h6>
-
                 </a>
               </div>
-
             </div>
-
           </div>
-
         </div>
       </div>
     </div>

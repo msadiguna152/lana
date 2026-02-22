@@ -54,7 +54,7 @@
   <!-- <div class="no-print" style="margin-top:15px">
     <strong>Last Query:</strong>
     <pre><?= $this->db->last_query(); ?></pre>
-  </div> -->
-
+  </div>
+ -->
 </body>
 </html>
