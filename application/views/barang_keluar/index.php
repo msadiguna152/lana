@@ -74,7 +74,7 @@
                   <td class="text-center"><?= $data->no_bukti; ?></td>
                   <td class="text-center"><?= $data->no_berita_acara; ?></td>
                   <td class="text-center">
-                    <b class="text-info"><?= $data->nama_pegawai ?? '-'; ?></b><br>
+                    <b class="text-center"><?= $data->nama_pegawai ?? '-'; ?></b><br>
                     <?= $data->jenis_register ?? ''; ?> <?= $data->nip_no_reg ?? ''; ?>
                   </td>
                   <td class="text-center">

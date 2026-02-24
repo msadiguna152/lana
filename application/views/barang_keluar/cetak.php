@@ -44,7 +44,7 @@
                 </div><!-- /.card-header -->
                 <div class="card-body">
                   <!-- <?= $last_query;?> -->
-                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center h4 text-info">Laporan Data Barang Keluar Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
+                  <?= $dari_tanggal!=NULL || $sampai_tanggal!=NULL ? '<p class="text text-center h4">Laporan Data Barang Keluar Dari Tanggal '.format_indo($dari_tanggal).' s/d '.format_indo($sampai_tanggal).'</p>' :'';?>
                   <div class="table-responsive">
                     <table id="example2" width="100%" class="table table-bordered table-hover">
                       <thead align="center">
