@@ -50,7 +50,7 @@
                         <?php $no=1; foreach ($pegawai->result() as $data) : ?>
                         <tr>
                           <td style="text-align: center; vertical-align: middle;"><?= $no;?></td>
-                          <td style="text-align: center; vertical-align: middle;"><b><a class="text text-info"><?= $data->nama_pegawai;?></a></b><br><?= $data->jenis_register;?>. <?= $data->nip_no_reg;?></td>
+                          <td style="text-align: center; vertical-align: middle;"><b><?= $data->nama_pegawai;?></b><br><?= $data->jenis_register;?>. <?= $data->nip_no_reg;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_pangkat;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_bidang;?></td>
                           <td style="text-align: center; vertical-align: middle;"><?= $data->nama_jabatan;?></td>
