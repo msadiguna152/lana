@@ -130,7 +130,7 @@
                       <td style="text-align: center; vertical-align: middle;"><?= $no;?></td>
                       <td style="text-align: center; vertical-align: middle;"><?= $data->no_bukti;?></td>
                       <td style="text-align: center; vertical-align: middle;"><?= $data->no_berita_acara;?></td>
-                      <td style="text-align: center; vertical-align: middle;"><b><a class="text text-info"><?= $data->nama_pegawai;?></a></b><br><?= $data->jenis_register;?>. <?= $data->nip_no_reg;?></td>
+                      <td style="text-align: center; vertical-align: middle;"><b><a class="text"><?= $data->nama_pegawai;?></a></b><br><?= $data->jenis_register;?>. <?= $data->nip_no_reg;?></td>
                       <td style="text-align: center; vertical-align: middle;"><?= format_indo($data->tanggal_pengajuan);?></td>
                       <td style="text-align: center; vertical-align: middle;">
                         <?php if ($data->status_barang_keluar=="Diterima") { ?>
