@@ -13,6 +13,7 @@ class Mbarang extends CI_Model {
 		);
 		$this->db->insert('barang',$data);
 	}
+	
 	public function get()
 	{
 		$query = $this->db

@@ -26,7 +26,7 @@
 
         <?php $jnotif = $this->db->query("SELECT * FROM `barang_keluar` JOIN pegawai ON barang_keluar.id_pegawai=pegawai.id_pegawai WHERE barang_keluar.status_barang_keluar='Menunggu' ORDER BY barang_keluar.id_barang_keluar DESC"); ?>
 
-        <li class="nav-item dropdown" <?= ($this->session->userdata('nama_pengguna')==="Pengusul") ? 'hidden' : ''; ?>>
+        <li class="nav-item dropdown" <?= ($this->session->userdata('level')==="Pengusul") ? 'hidden' : ''; ?>>
           <a class="nav-link position-relative" data-toggle="dropdown" href="#">
             <i class="far fa-bell fa-lg"></i>
 

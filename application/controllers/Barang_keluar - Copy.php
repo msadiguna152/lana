@@ -197,7 +197,7 @@ class Barang_keluar extends CI_Controller {
 	}
 
 	private function _setValidationInsert(){
-		if ($this->session->userdata('level') === 'Operator') {
+		if ($this->_isOperator()) {
 			$this->form_validation->set_rules('id_pegawai','Pemohon','required');
 			$this->form_validation->set_rules('no_berita_acara','No. Berita Acara','required');
 			$this->form_validation->set_rules('no_bukti','No. Bukti','required');

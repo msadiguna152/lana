@@ -4,7 +4,6 @@ class Barang extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('Mbarang');
-		
 	}
 	public function index(){
 		$id_satuan = $this->input->get('id_satuan');
